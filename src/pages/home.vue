@@ -1,5 +1,5 @@
 <template>
-  <div class="register-page">
+  <div class="home-page">
     222
     <a href="tel:4008040080" class="call"></a>
     <!-- <van-form @submit="onSubmit">
@@ -189,6 +189,4 @@
   // }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

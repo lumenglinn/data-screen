@@ -37,10 +37,10 @@ export default defineConfig(({ mode }) => {
           // 避免出现：build时的@charset必须在第一行的警告
           charset: false,
           // 全局使用src/assets/css/variables.scss定义的变量
-          additionalData: `
-          @import "~/css/mixin.scss";
-          @import "~/css/variables.scss";
-          `
+          // additionalData: `
+          // @import "~/css/mixin.scss";
+          // @import "~/css/variables.scss";
+          // `
         }
       }
     },
