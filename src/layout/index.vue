@@ -6,48 +6,7 @@
       <div class="logo"></div>
       <div class="company"></div>
     </div>
-    <div class="content">
-      <div class="content-left">
-        <div class="wrap">
-          <div class="wrap-title">
-            车位使用及入区率
-          </div>
-          <div class="wrap-cont wrap-1"></div>
-        </div>
-        <div class="wrap">
-          <div class="wrap-title">
-
-          </div>
-          <div class="wrap-cont wrap-2"></div>
-        </div>
-        <div class="wrap">
-          <div class="wrap-title">
-
-          </div>
-          <div class="wrap-cont wrap-3"></div>
-        </div>
-      </div>
-      <div class="content-right">
-        <div class="wrap">
-          <div class="wrap-title">
-
-          </div>
-          <div class="wrap-cont wrap-4"></div>
-        </div>
-        <div class="wrap">
-          <div class="wrap-title">
-
-          </div>
-          <div class="wrap-cont wrap-5"></div>
-        </div>
-        <div class="wrap">
-          <div class="wrap-title">
-
-          </div>
-          <div class="wrap-cont wrap-6"></div>
-        </div>
-      </div>
-    </div>
+    <slot></slot>
     <div class="footer">
       <img class="guide-icon" src="../assets/layout/guide-home.png" alt="">
       <img class="guide-icon" src="../assets/layout/guide-car.png" alt="">
@@ -110,66 +69,6 @@ const count = ref(0)
     }
   }
 
-  .content {
-    .wrap {
-      margin-top: 15px;
-    }
-
-    .wrap-title {
-      display: block;
-      position: relative;
-      width: 484px;
-      height: 29px;
-      line-height: 29px;
-      padding-left: 31px;
-      color: #fff;
-      font-size: 18px;
-      background-image: linear-gradient(270deg, rgba(92, 188, 218, 0.00) 17%, #5CBCDA 100%);
-
-
-    }
-
-    .wrap-title::before {
-      content: '';
-      width: 9px;
-      height: 18px;
-      position: absolute;
-      left: 15px;
-      top: 5px;
-      background-color: #fff;
-    }
-
-    .wrap-cont {
-      width: 484px;
-      height: 244px;
-      margin-top: 15px;
-      opacity: 0.25;
-      border: 4px solid rgba(92, 188, 218, 1);
-      box-shadow: inset 0px 0px 114px 6px rgba(92, 188, 218, 1);
-      border-radius: 14px;
-    }
-
-    .wrap1 {
-      height: 244px;
-    }
-
-    .content-left {
-      position: absolute;
-      left: 21px;
-      top: 183px;
-      width: 484px;
-      // height: 925px;
-    }
-
-    .content-right {
-      position: absolute;
-      right: 21px;
-      top: 198px;
-      width: 484px;
-      height: 925px;
-    }
-  }
-
   .footer {
     width: 557px;
     height: 52px;
@@ -188,7 +87,6 @@ const count = ref(0)
     .guide-icon {
       width: 24px;
       height: 24px;
-
     }
   }
 }

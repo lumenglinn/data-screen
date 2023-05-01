@@ -9,8 +9,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BarChart: typeof import('./src/components/BarChart.vue')['default']
+    CarChart: typeof import('./src/components/home/CarChart.vue')['default']
+    Chart: typeof import('./src/components/Chart.vue')['default']
+    copy: typeof import('./src/components/home/PassengerChart copy.vue')['default']
+    EnergyChart: typeof import('./src/components/home/EnergyChart.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    LineChart: typeof import('./src/components/LineChart.vue')['default']
+    PassengerChart: typeof import('./src/components/home/PassengerChart.vue')['default']
+    PeopleChar: typeof import('./src/components/peopleChar.vue')['default']
+    PeopleChart: typeof import('./src/components/peopleChart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShopChart: typeof import('./src/components/home/ShopChart.vue')['default']
   }
 }
