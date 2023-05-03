@@ -8,6 +8,4 @@ import Layout from './layout/index.vue'
   </layout>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
