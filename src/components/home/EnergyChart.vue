@@ -23,7 +23,7 @@ onMounted(() => {
       axisLabel: {
         interval: 1,
         textStyle: {
-          fontSize: proxy.$echartsSize(10),
+          fontSize: proxy.$echartsSize(14),
           color: '#fff'
         }
       },
@@ -36,7 +36,7 @@ onMounted(() => {
     yAxis: {
       type: 'value',
       axisLabel: {
-        fontSize: proxy.$echartsSize(12),
+        fontSize: proxy.$echartsSize(14),
         color: "#ffffff"
       },
       minInterval: 1,
@@ -49,9 +49,10 @@ onMounted(() => {
       axisTick: { show: false },
     },
     grid: {
-      top: proxy.$echartsSize(45),
-      bottom: proxy.$echartsSize(30),
-      left: proxy.$echartsSize(50),
+      top: proxy.$echartsSize(70),
+      bottom: proxy.$echartsSize(45),
+      left: proxy.$echartsSize(60),
+      right: proxy.$echartsSize(28),
       show: false
     },
     axisTick: {

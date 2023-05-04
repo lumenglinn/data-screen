@@ -38,10 +38,10 @@ onMounted(() => {
       }
     },
     grid: {
-      top: proxy.$echartsSize(50),
-      bottom: proxy.$echartsSize(25),
-      left: proxy.$echartsSize(40),
-      right: proxy.$echartsSize(15),
+      top: proxy.$echartsSize(70),
+      bottom: proxy.$echartsSize(45),
+      left: proxy.$echartsSize(60),
+      right: proxy.$echartsSize(28),
       show: false
     },
     axisTick: {
@@ -58,7 +58,7 @@ onMounted(() => {
         axisLabel: {
           interval: 0,
           textStyle: {
-            fontSize: proxy.$echartsSize(10),
+            fontSize: proxy.$echartsSize(14),
             color: '#fff'
           }
         },
@@ -79,7 +79,7 @@ onMounted(() => {
         //刻度值
         axisLabel: {
           textStyle: {
-            fontSize: proxy.$echartsSize(12),
+            fontSize: proxy.$echartsSize(14),
             color: '#fff'
           }
         },

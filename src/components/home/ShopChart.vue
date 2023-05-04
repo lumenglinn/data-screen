@@ -6,6 +6,13 @@
 const EcharRef = ref(null)
 const { proxy } = getCurrentInstance()
 
+const props = defineProps({
+  dataSource: {
+    type: Array,
+    default: []
+  }
+})
+
 onMounted(() => {
   const myChart = proxy.$echarts.init(EcharRef.value);
   myChart.setOption({
@@ -17,7 +24,7 @@ onMounted(() => {
       type: 'category',
       inverse: true,
       axisLabel: {
-        fontSize: proxy.$echartsSize(12),
+        fontSize: proxy.$echartsSize(14),
         color: "#ffffff"
       },
       axisLine: { show: false },
@@ -25,14 +32,15 @@ onMounted(() => {
       data: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店']
     },
     grid: {
-      top: proxy.$echartsSize(10),
-      bottom: proxy.$echartsSize(10),
-      left: proxy.$echartsSize(120),
+      top: proxy.$echartsSize(70),
+      bottom: proxy.$echartsSize(15),
+      left: proxy.$echartsSize(160),
+      right: proxy.$echartsSize(28),
       show: false
     },
     series: [
       {
-        data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1],
+        data: props.dataSource,
         type: 'bar',
         showBackground: true,
         itemStyle: {

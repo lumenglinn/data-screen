@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <!-- <div class="head">
+    <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
@@ -13,8 +13,8 @@
       <div class="handle-box">
         <div class="handle-item">内场</div>
         <div class="handle-item active">外场</div>
-        </div>
-      </div> -->
+      </div>
+    </div>
     <div class="page-handle">
       <img class="page-handle-item" src="../assets/layout/right-short.png" @click="exitFullscreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
@@ -57,18 +57,18 @@ import setIcon from '../assets/layout/guide-set.png';
 // 切页icon控制
 const pageList = ref([
   { page: 'home', iconUrl: homeIcon, hoverText: '总览' },
-  // { page: 'car', iconUrl: carIcon, hoverText: '车流' },
-  // { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
-  // { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
-  // { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
-  // { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
-  // { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
-  // { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
-  // { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
-  // { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
-  // { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
-  // { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
-  // { page: 'set', iconUrl: setIcon, hoverText: '设置' }
+  { page: 'car', iconUrl: carIcon, hoverText: '车流' },
+  { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
+  { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
+  { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
+  { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
+  { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
+  { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
+  { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
+  { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
+  { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
+  { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
+  { page: 'set', iconUrl: setIcon, hoverText: '设置' }
 ])
 const footerShow = ref(true)
 
@@ -81,8 +81,8 @@ const handleFooters = () => {
 .layout {
   width: 100%;
   height: 100%;
-  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  // background-size: cover;
+  background: url(../assets/layout/bg.jpg) no-repeat center 0;
+  background-size: cover;
 
   .head {
     width: 1880px;
@@ -153,7 +153,7 @@ const handleFooters = () => {
     width: 80px;
     height: 40px;
     position: absolute;
-    bottom: 30px;
+    bottom: 50px;
     left: 50%;
     background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
     background-size: 100%;

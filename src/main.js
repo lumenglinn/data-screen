@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import echarts from './common/echarts.js'
 import { echartsSize } from './common/utils.js'
+import 'animate.css';
 // import piniaPluginPersist from 'pinia-plugin-persist'
 // import { createPinia } from 'pinia'
 // import { ajaxRequest } from '@/common/api/index'
