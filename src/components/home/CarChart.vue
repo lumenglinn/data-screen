@@ -1,21 +1,23 @@
 
 
 <template>
-  <div ref="EcharRef" style="width: 330px; height: 170px"></div>
+  <div ref="EcharRef" class="my-charts"></div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import * as echarts from "echarts";
+const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
 
-// defineProps({
-//   cusOption: Object,
-// })
+const props = defineProps({
+  dataSource: {
+    type: Array,
+    default: []
+  }
+})
 
 onMounted(() => {
-  const myChars = echarts.init(EcharRef.value);
-  myChars.setOption({
+  const myChart = proxy.$echarts.init(EcharRef.value);
+  myChart.setOption({
     // legend: {
     //   orient: 'horizontal',
     //   icon: 'rect',
@@ -36,14 +38,13 @@ onMounted(() => {
       }
     },
     grid: {
-      top: 50,
-      bottom: 25,
-      left: 50,
-      right: 15,
+      top: proxy.$echartsSize(70),
+      bottom: proxy.$echartsSize(35),
+      left: proxy.$echartsSize(75),
+      right: proxy.$echartsSize(50),
       show: false
     },
     axisTick: {
-      // length: -2,
       lineStyle: {
         type: 'dotted',
         color: '#3447A2',
@@ -56,7 +57,7 @@ onMounted(() => {
         axisLabel: {
           interval: 0,
           textStyle: {
-            fontSize: 10,
+            fontSize: proxy.$echartsSize(10),
             color: '#fff'
           }
         },
@@ -65,7 +66,7 @@ onMounted(() => {
         axisLine: {
           lineStyle: {
             color: '#FFFFFF',
-            width: 1,
+            width: proxy.$echartsSize(1),
           }
         },
       }
@@ -77,13 +78,12 @@ onMounted(() => {
         //刻度值
         axisLabel: {
           textStyle: {
-            fontSize: 12,
+            fontSize: proxy.$echartsSize(12),
             color: '#fff'
           }
         },
         //网格
         splitLine: {
-          // show: false,
           lineStyle: {
             type: 'dashed'
           }
@@ -105,7 +105,7 @@ onMounted(() => {
         showSymbol: false,//去除圆点
         smooth: true, //非折线
         areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          color: new proxy.$echarts.graphic.LinearGradient(0, 0, 1, 1, [
             {
               offset: 0,
               color: 'rgba(194,242,236,0.67)'
@@ -119,19 +119,21 @@ onMounted(() => {
         itemStyle: {
           normal: {
             lineStyle: {
-              width: 4
+              width: proxy.$echartsSize(4)
             }
           }
         },
-        data: [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10]
+        data: props.dataSource
       }
     ]
-  });
-});
+  })
+})
 
 </script>
 
 
-<style scoped></style>
+<style scoped>
+
+</style>
 
 
