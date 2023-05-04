@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <div class="content">
-      <div class="main-data">
+      <!-- <div class="main-data">
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top1.png" alt="">
           <div class="data-right">
@@ -44,7 +44,7 @@
             <div class="data">1,978</div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="ratio-wrap">
         <div class="hexagon"></div>
         <div class="ratio-box">
@@ -72,7 +72,7 @@
           <div class="ratio-name">车客转换系数</div>
         </div> -->
       </div>
-      <div class="content-left">
+      <!-- <div class="content-left">
         <div class="wrap">
           <div class="wrap-title">商铺销售</div>
           <div class="wrap-cont">
@@ -83,7 +83,7 @@
                 <div class="handle-item">日</div>
               </div>
             </div>
-            <shop-chart class="bar-chart" />
+            <shop-chart class="bar-chart" :dataSource="carData" />
           </div>
         </div>
         <div class="wrap">
@@ -106,11 +106,11 @@
                 <div class="handle-item">日</div>
               </div>
             </div>
-            <passenger-chart />
+            <passenger-chart :dataSource="carData" />
           </div>
         </div>
-      </div>
-      <div class="content-right">
+      </div> -->
+      <div class="content-right animate__animated animate__fadeInRight">
         <div class="wrap">
           <div class="wrap-title">车流</div>
           <div class="wrap-cont">
@@ -121,7 +121,7 @@
                 <div class="handle-item">日</div>
               </div>
             </div>
-            <car-chart />
+            <car-chart :dataSource="carData" />
           </div>
         </div>
         <div class="wrap">
@@ -138,7 +138,7 @@
                 <div class="handle-item">日</div>
               </div>
             </div>
-            <energy-chart />
+            <energy-chart :dataSource="energyData" />
           </div>
         </div>
         <div class="wrap equipment">
@@ -173,6 +173,10 @@
 </template>
 
 <script setup>
+
+const carData = ref([20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10]) // 车流图表数据
+const energyData = ref([1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2]) // 能源图表数据
+const passengerData = ref([200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690]) // 客流图表数据
 
 </script>
 
