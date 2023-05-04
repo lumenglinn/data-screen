@@ -13,5 +13,5 @@ const app = createApp(App)
 // pinia.use(piniaPluginPersist)
 // app.config.globalProperties.$http = ajaxRequest
 // app.config.globalProperties.$echarts = echarts;
-app.config.globalProperties.echartsSize = echartsSize
+app.config.globalProperties.$echartsSize = echartsSize
 app.use(router).mount('#app')
