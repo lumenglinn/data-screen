@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 const dataSource = ref([
   { type: '风机', run: '7/23', failure: '0/0' },
   { type: '风机', run: '7/23', failure: '0/4' },
