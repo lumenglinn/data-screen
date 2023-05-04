@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-  <!-- <div class="head">
+    <!-- <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
@@ -32,10 +32,10 @@
       </div>
     </div>
     <slot></slot>
-    <div class="footer">
-      <div class="guide-handle"></div>
+    <div class="footer animate__animated" :class="[footerShow ? 'animate__fadeInUp' : 'animate__fadeOutDown']">
       <img class="guide-icon" :src="item.iconUrl" v-for="(item) in pageList" :key="item.page" alt="" />
     </div>
+    <div class="guide-handle" @click="handleFooters"></div>
   </div>
 </template>
 <script setup>
@@ -70,10 +70,11 @@ const pageList = ref([
   // { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
   // { page: 'set', iconUrl: setIcon, hoverText: '设置' }
 ])
+const footerShow = ref(true)
 
-// const fullScreen = () {
-
-// }
+const handleFooters = () => {
+  footerShow.value = !footerShow.value
+}
 
 </script>
 <style lang="scss" scoped>
@@ -112,6 +113,9 @@ const pageList = ref([
     }
   }
 
+  // .footer-wrap {
+  //   position: relative;
+
   .footer {
     width: 557px;
     height: 52px;
@@ -128,10 +132,35 @@ const pageList = ref([
     align-items: center;
 
     .guide-icon {
+      position: relative;
       width: 24px;
       height: 24px;
+
+      &::before {
+        content: 'aaa';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background: #ccc;
+        width: 50px;
+        height: 50px;
+      }
     }
   }
+
+  .guide-handle {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
+    background-size: 100%;
+  }
+
+  // }
+
 
   .top-handle-wrap {
     font-size: 18px;
@@ -226,28 +255,6 @@ const pageList = ref([
     }
   }
 
-  .guide-icon {
-    position: relative;
 
-    &::before {
-      content: 'aaa';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, 0);
-      background: #ccc;
-      width: 50px;
-      height: 50px;
-    }
-  }
-  .guide-handle {
-    width: 80px;
-    height: 40px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
-    background-size: 100%;    
-  }
 }
 </style>
