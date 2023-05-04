@@ -1,17 +1,14 @@
-
-
 <template>
-  <div ref="EcharRef" style="width: 330px; height: 145px"></div>
+  <div ref="EcharRef" class="my-charts"></div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import * as echarts from "echarts";
 const EcharRef = ref(null)
+const { proxy } = getCurrentInstance()
 
 onMounted(() => {
-  const myChars = echarts.init(EcharRef.value);
-  myChars.setOption({
+  const myChart = proxy.$echarts.init(EcharRef.value);
+  myChart.setOption({
     xAxis: {
       type: 'value',
       show: false,
@@ -20,7 +17,7 @@ onMounted(() => {
       type: 'category',
       inverse: true,
       axisLabel: {
-        fontSize: 12,
+        fontSize: proxy.$echartsSize(12),
         color: "#ffffff"
       },
       axisLine: { show: false },
@@ -28,9 +25,9 @@ onMounted(() => {
       data: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店']
     },
     grid: {
-      top: 10,
-      bottom: 10,
-      left: 120,
+      top: proxy.$echartsSize(10),
+      bottom: proxy.$echartsSize(10),
+      left: proxy.$echartsSize(120),
       show: false
     },
     series: [
@@ -39,10 +36,10 @@ onMounted(() => {
         type: 'bar',
         showBackground: true,
         itemStyle: {
-          barBorderRadius: 15,
-          shadowBlur: 3,
+          barBorderRadius: proxy.$echartsSize(15),
+          shadowBlur: proxy.$echartsSize(3),
           normal: {
-            color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+            color: new proxy.$echarts.graphic.LinearGradient(1, 0, 0, 0, [{
               offset: 0,
               color: '#70A3D1'
             }, {
@@ -57,7 +54,7 @@ onMounted(() => {
           normal: {
             show: true,
             position: 'right',
-            fontSize: 10,
+            fontSize: proxy.$echartsSize(10),
             color: '#ffffff',
             formatter: (params) => {
               return `${params.value}万元`
