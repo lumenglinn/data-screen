@@ -46,7 +46,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 const dataSource = ref([
   { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
   { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
