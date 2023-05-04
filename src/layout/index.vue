@@ -1,8 +1,6 @@
-
-
 <template>
   <div class="layout">
-    <div class="head">
+  <!-- <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
@@ -15,12 +13,12 @@
       <div class="handle-box">
         <div class="handle-item">内场</div>
         <div class="handle-item active">外场</div>
-      </div>
-    </div>
+        </div>
+      </div> -->
     <div class="page-handle">
-      <img class="page-handle-item" src="../assets/layout/right-short.png" alt="" />
-      <img class="page-handle-item" src="../assets/layout/right-full.png" alt="" />
-      <img class="page-handle-item" src="../assets/layout/right-close.png" alt="" />
+      <img class="page-handle-item" src="../assets/layout/right-short.png" @click="exitFullscreen" alt="" />
+      <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
+      <img class="page-handle-item" src="../assets/layout/right-close.png" @click="closeWindow" alt="" />
     </div>
     <div class="date-wrap">
       <div class="date-wrap-left">
@@ -35,37 +33,55 @@
     </div>
     <slot></slot>
     <div class="footer">
-      <img class="guide-icon" src="../assets/layout/guide-home.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-car.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-people.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-quality.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-parking.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-commerce.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-energy.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-monitor.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-equipment.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-toilet.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-light.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-broadcast.png" alt="" />
-      <img class="guide-icon" src="../assets/layout/guide-set.png" alt="" />
+      <div class="guide-handle"></div>
+      <img class="guide-icon" :src="item.iconUrl" v-for="(item) in pageList" :key="item.page" alt="" />
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { fullScreen, exitFullscreen, closeWindow } from '@/common/utils'
+import homeIcon from '../assets/layout/guide-home.png';
+import carIcon from '../assets/layout/guide-car.png';
+import peopleIcon from '../assets/layout/guide-people.png';
+import qualityIcon from '../assets/layout/guide-quality.png';
+import parkingIcon from '../assets/layout/guide-parking.png';
+import commerceIcon from '../assets/layout/guide-commerce.png';
+import energyIcon from '../assets/layout/guide-energy.png';
+import monitorIcon from '../assets/layout/guide-monitor.png';
+import equipmentIcon from '../assets/layout/guide-equipment.png';
+import toiletIcon from '../assets/layout/guide-toilet.png';
+import lightIcon from '../assets/layout/guide-light.png';
+import broadcastIcon from '../assets/layout/guide-broadcast.png';
+import setIcon from '../assets/layout/guide-set.png';
 
-defineProps({
-  msg: String,
-})
+// 切页icon控制
+const pageList = ref([
+  { page: 'home', iconUrl: homeIcon, hoverText: '总览' },
+  // { page: 'car', iconUrl: carIcon, hoverText: '车流' },
+  // { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
+  // { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
+  // { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
+  // { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
+  // { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
+  // { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
+  // { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
+  // { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
+  // { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
+  // { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
+  // { page: 'set', iconUrl: setIcon, hoverText: '设置' }
+])
 
-const count = ref(0)
+// const fullScreen = () {
+
+// }
+
 </script>
 <style lang="scss" scoped>
 .layout {
   width: 100%;
   height: 100%;
-  background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  background-size: cover;
+  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
+  // background-size: cover;
 
   .head {
     width: 1880px;
@@ -208,6 +224,30 @@ const count = ref(0)
       padding-left: 12px;
       font-weight: 400;
     }
+  }
+
+  .guide-icon {
+    position: relative;
+
+    &::before {
+      content: 'aaa';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background: #ccc;
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .guide-handle {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
+    background-size: 100%;    
   }
 }
 </style>
