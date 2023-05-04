@@ -1,21 +1,23 @@
 
 
 <template>
-  <div ref="EcharRef" style="width: 330px; height: 170px"></div>
+  <div ref="EcharRef" class="my-charts"></div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import * as echarts from "echarts";
+const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
 
-// defineProps({
-//   cusOption: Object,
-// })
+const props = defineProps({
+  dataSource: {
+    type: Array,
+    default: []
+  }
+})
 
 onMounted(() => {
-  const myChars = echarts.init(EcharRef.value);
-  myChars.setOption({
+  const myChart = proxy.$echarts.init(EcharRef.value);
+  myChart.setOption({
     // legend: {
     //   orient: 'horizontal',
     //   icon: 'rect',
@@ -36,10 +38,10 @@ onMounted(() => {
       }
     },
     grid: {
-      top: 50,
-      bottom: 25,
-      left: 40,
-      right: 15,
+      top: proxy.$echartsSize(50),
+      bottom: proxy.$echartsSize(25),
+      left: proxy.$echartsSize(40),
+      right: proxy.$echartsSize(15),
       show: false
     },
     axisTick: {
@@ -56,7 +58,7 @@ onMounted(() => {
         axisLabel: {
           interval: 0,
           textStyle: {
-            fontSize: 10,
+            fontSize: proxy.$echartsSize(10),
             color: '#fff'
           }
         },
@@ -65,7 +67,7 @@ onMounted(() => {
         axisLine: {
           lineStyle: {
             color: '#FFFFFF',
-            width: 1,
+            width: proxy.$echartsSize(1),
           }
         },
       }
@@ -77,7 +79,7 @@ onMounted(() => {
         //刻度值
         axisLabel: {
           textStyle: {
-            fontSize: 12,
+            fontSize: proxy.$echartsSize(12),
             color: '#fff'
           }
         },
@@ -107,11 +109,11 @@ onMounted(() => {
         itemStyle: {
           normal: {
             lineStyle: {
-              width: 4
+              width: proxy.$echartsSize(4)
             }
           }
         },
-        data: [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690]
+        data: props.dataSource
       }
     ]
   });
