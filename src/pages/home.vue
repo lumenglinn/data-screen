@@ -1,52 +1,51 @@
 <template>
   <div class="home-page">
     <div class="content">
-      <div class="main-data">
+      <!-- <div class="main-data">
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top1.png" alt="">
           <div class="data-right">
             <div class="data-name">当日总销售</div>
-            <div class="data">1,536</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top2.png" alt="">
           <div class="data-right">
             <div class="data-name">能源销售</div>
-            <div class="data">1,978</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top3.png" alt="">
           <div class="data-right">
             <div class="data-name">零售销售</div>
-            <div class="data">1,978</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top4.png" alt="">
           <div class="data-right">
             <div class="data-name">商户销售</div>
-            <div class="data">1,978</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top5.png" alt="">
           <div class="data-right">
             <div class="data-name">车流情况</div>
-            <div class="data">1,978</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top6.png" alt="">
           <div class="data-right">
             <div class="data-name">客流情况</div>
-            <div class="data">1,978</div>
+            <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
-      </div>
-      <div class="ratio-wrap">
-        <!-- <div class="hexagon"></div> -->
+      </div> -->
+      <!-- <div class="ratio-wrap">
         <div class="ratio-box">
           <div class="data f-w-900">
             <div>18%</div>
@@ -67,11 +66,7 @@
           </div>
           <div class="ratio-name">平均停留时间</div>
         </div>
-        <!-- <div class="ratio-box">
-          <div class="data f-w-900">2.9</div>
-          <div class="ratio-name">车客转换系数</div>
-        </div> -->
-      </div>
+      </div> -->
       <div class="content-left animate__animated animate__fadeInLeft">
         <div class="wrap">
           <div class="wrap-title">商铺销售</div>
@@ -88,8 +83,20 @@
         </div>
         <div class="wrap">
           <div class="wrap-title">服务质量</div>
+          <div class="info_list_content swiper swiper-container swiper1">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div v-for="(item, index) in infoList" :key="index">
+                  <rh-image
+                    :src="item.src"
+                    :width="item.width"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="wrap-cont wrap-2">
-            <services />
+            <services :dataSource="serviceData" />
           </div>
         </div>
         <div class="wrap">
@@ -110,7 +117,7 @@
           </div>
         </div>
       </div>
-      <div class="content-right animate__animated animate__fadeInRight">
+      <!-- <div class="content-right animate__animated animate__fadeInRight">
         <div class="wrap">
           <div class="wrap-title">车流</div>
           <div class="wrap-cont">
@@ -181,17 +188,39 @@
             <equipment />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script setup>
+// import CountTo from 'vue-count-to'
+import { reactive } from "vue";
+import { numFormat } from '@/common/utils'
+import countTo from "@/components/CountTo";
 
-const carData = ref([20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10]) // 车流图表数据
-const energyData = ref([1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2]) // 能源图表数据
-const passengerData = ref([200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690]) // 客流图表数据
-const shopData = ref([0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1]) // 商铺图表数据
+const carData = reactive([20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10])// 车流图表数据
+const energyData = reactive([1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2])// 能源图表数据
+const passengerData = reactive([200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690]) // 客流图表数据
+const shopData = reactive([0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1])// 商铺图表数据
+const serviceData = reactive([
+  { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
+  { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
+  { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
+  { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
+  { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
+  { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
+  { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
+  { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
+  { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
+  { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
+])// 服务质量数据
+// 顶部数据
+const topData = reactive({
+  data: 1900,
+})
+const swiperOptions = reactive({})
+
 
 
 </script>
@@ -227,7 +256,7 @@ const shopData = ref([0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1]) // 商铺图
     .data {
       font-size: 24px;
       color: #FFFFFF;
-
+      color: #ccc;
     }
   }
 
@@ -396,36 +425,6 @@ const shopData = ref([0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1]) // 商铺图
     }
   }
 
-
-  .hexagon {
-    position: relative;
-    width: 100px;
-    height: 55px;
-    background-color: #ccc;
-    margin: 50px auto;
-  }
-
-  .hexagon:before,
-  .hexagon:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-  }
-
-  .hexagon:before {
-    bottom: 100%;
-    border-bottom: 27.5px solid #ccc;
-  }
-
-  .hexagon:after {
-    top: 100%;
-    width: 0;
-    border-top: 27.5px solid #ccc;
-    transform: rotate(180deg);
-  }
 
 
 
