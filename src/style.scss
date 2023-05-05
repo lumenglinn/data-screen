@@ -1,3 +1,19 @@
+@use "sass:math";
+
+// 默认设计稿的宽高度
+$designWidth: 1920;
+$designHeight: 1080;
+
+// px 转为 vw 的函数
+@function vw($px) {
+  @return math.div($px, $designWidth) * 100vw;
+}
+
+// px 转为 vh 的函数
+@function vh($px) {
+  @return math.div($px, $designHeight) * 100vh;
+}
+
 #app {
   position: absolute;
   top: 0;
@@ -44,7 +60,7 @@
   .wrap-cont {
     position: relative;
     width: 484px;
-    height: 244px;
+    height: vh(244);
     margin-top: 15px;
 
     &::before {
@@ -109,7 +125,8 @@
 }
 
 .list-table {
-  color: #ffffff;
+  // color: #ffffff;
+  overflow: hidden;
 
   .list-head {
     display: flex;
