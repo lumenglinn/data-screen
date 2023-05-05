@@ -3,6 +3,7 @@ module.exports = {
     'postcss-px-to-viewport-8-plugin': {
       unitToConvert: 'px',
       viewportWidth: 1920,
+      viewportHeight: 1080,
       unitPrecision: 6,
       propList: ['*'],
       viewportUnit: 'vw',
