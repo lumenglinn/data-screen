@@ -32,31 +32,36 @@
         <div class="list-head-item">是否合格</div>
       </div>
       <div class="list-body">
-        <div class="list-data" v-for="(item, index) in       dataSource      " :key="index">
-          <div class="data-item">{{ item.no }}</div>
-          <div class="data-item">{{ item.name }}</div>
-          <div class="data-item time">{{ item.time }}</div>
-          <div class="data-item">
-            <div class="result" :class="{ 'error': item.result === 1 }"></div>
-          </div>
-        </div>
+        <swiper :slides-per-view="5" :autoplay="{ delay: 2000, disableOnInteraction: false }" :speed="500"
+          :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true" :modules="modules"
+          style="height: 120px" ref="mySwiper">
+          <swiper-slide v-for="(item, index) in dataSource" :key="index" class="list-data">
+            <div class="data-item">{{ item.no }}</div>
+            <div class="data-item">{{ item.name }}</div>
+            <div class="data-item time">{{ item.time }}</div>
+            <div class="data-item">
+              <div class="result" :class="{ 'error': item.result === 1 }"></div>
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-const dataSource = ref([
-  { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
-])
+import { reactive } from "vue";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Navigation, Pagination, A11y } from 'swiper';
+import 'swiper/css';
+const modules = [Autoplay, Pagination, Navigation, A11y];
 
-onMounted(() => {
-
-});
+const props = defineProps({
+  dataSource: {
+    type: Array,
+    default: []
+  }
+})
 
 </script>
 
@@ -65,6 +70,7 @@ onMounted(() => {
 .services {
   width: 100%;
   padding-top: 13px;
+  color: #ccc;
 
   .service-head {
     width: 457px;
@@ -81,7 +87,6 @@ onMounted(() => {
     width: 25%;
     display: flex;
   }
-
   .service-icon {
     width: 14px;
     height: 8px;
@@ -102,8 +107,6 @@ onMounted(() => {
   .fail .service-icon {
     background: #E62A44;
   }
-
-
   .service-data {
     margin-left: 9px;
   }
@@ -112,54 +115,19 @@ onMounted(() => {
   .list-head-item {
     width: 22%;
   }
-
   .data-item.time,
   .list-head-item.time {
     width: 34%;
   }
-
   .result {
     width: 14px;
     height: 8px;
     margin: 10px auto 0;
     background: #7ED321;
-
     &.error {
       background: #E62A44;
     }
   }
-
-
-  // .run {
-  //   position: relative;
-  //   padding-left: 30px;
-
-  //   &::before {
-  //     content: '';
-  //     width: 14px;
-  //     height: 8px;
-  //     position: absolute;
-  //     top: 6px;
-  //     left: 0;
-
-  //   }
-  // }
-
-  // .failure {
-  //   position: relative;
-  //   padding-left: 30px;
-
-  //   &::before {
-  //     content: '';
-  //     width: 14px;
-  //     height: 8px;
-  //     position: absolute;
-  //     top: 6px;
-  //     left: 0;
-  //     background: #E62A44;
-  //   }
-  // }
-
 }
 </style>
 
