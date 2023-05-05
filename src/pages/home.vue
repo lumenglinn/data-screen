@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <div class="content">
-      <!-- <div class="main-data">
+      <div class="main-data">
         <div class="data-item">
           <img class="data-icon" src="../assets/home/top1.png" alt="">
           <div class="data-right">
@@ -44,8 +44,8 @@
             <count-to :start-val="0" :end-val="topData.data" class="data" :duration='1000' />
           </div>
         </div>
-      </div> -->
-      <!-- <div class="ratio-wrap">
+      </div>
+      <div class="ratio-wrap">
         <div class="ratio-box">
           <div class="data f-w-900">
             <div>18%</div>
@@ -66,8 +66,9 @@
           </div>
           <div class="ratio-name">平均停留时间</div>
         </div>
-      </div> -->
-      <div class="content-left animate__animated animate__fadeInLeft">
+      </div>
+      <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
+        class="content-left animate__animated">
         <div class="wrap">
           <div class="wrap-title">商铺销售</div>
           <div class="wrap-cont">
@@ -87,10 +88,7 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <div v-for="(item, index) in infoList" :key="index">
-                  <rh-image
-                    :src="item.src"
-                    :width="item.width"
-                  />
+                  <rh-image :src="item.src" :width="item.width" />
                 </div>
               </div>
             </div>
@@ -117,7 +115,9 @@
           </div>
         </div>
       </div>
-      <!-- <div class="content-right animate__animated animate__fadeInRight">
+      <div
+        :class="[footerShow ? 'animate__fadeInRight' : 'animate__fadeOutRight', isInitAnimated ? 'handle-duration' : '']"
+        class="content-right animate__animated">
         <div class="wrap">
           <div class="wrap-title">车流</div>
           <div class="wrap-cont">
@@ -188,13 +188,13 @@
             <equipment />
           </div>
         </div>
-      </div> -->
+      </div>
+      <div class="handle-content" @click="handleContent"></div>
     </div>
   </div>
 </template>
 
 <script setup>
-// import CountTo from 'vue-count-to'
 import { reactive } from "vue";
 import { numFormat } from '@/common/utils'
 import countTo from "@/components/CountTo";
@@ -221,7 +221,13 @@ const topData = reactive({
 })
 const swiperOptions = reactive({})
 
+const footerShow = ref(true)
+const isInitAnimated = ref(false)
 
+const handleContent = () => {
+  isInitAnimated.value = true
+  footerShow.value = !footerShow.value
+}
 
 </script>
 
@@ -256,7 +262,6 @@ const swiperOptions = reactive({})
     .data {
       font-size: 24px;
       color: #FFFFFF;
-      color: #ccc;
     }
   }
 
@@ -397,7 +402,9 @@ const swiperOptions = reactive({})
     .ratio-box {
       width: 148px;
       height: 66px;
-      border: 2px solid rgba(54, 255, 251, 0.22);
+      // border: 2px solid rgba(54, 255, 251, 0.22);
+      background: url(../assets/home/ratio-bg.png) no-repeat center 0;
+      background-size: 100%;
     }
 
     .ratio-box+.ratio-box {
@@ -425,7 +432,21 @@ const swiperOptions = reactive({})
     }
   }
 
+  .handle-content {
+    height: 100px;
+    width: 13px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -50px;
+    background: url(../assets/layout/icon-center.png) no-repeat center 0;
+    background-size: 100%;
+    opacity: 1 !important;
+  }
 
+  .handle-duration {
+    animation-duration: 0.5s;
+  }
 
 
 }

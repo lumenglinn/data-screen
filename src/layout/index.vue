@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <!-- <div class="head">
+    <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
@@ -14,9 +14,9 @@
         <div class="handle-item">内场</div>
         <div class="handle-item active">外场</div>
       </div>
-    </div> -->
-    <!-- <div class="page-handle">
-      <img class="page-handle-item" src="../assets/layout/right-short.png" @click="exitFullscreen" alt="" />
+    </div>
+    <div class="page-handle">
+      <img class="page-handle-item" src="../assets/layout/right-exit.png" @click="exitFullscreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-close.png" @click="closeWindow" alt="" />
     </div>
@@ -27,16 +27,21 @@
         </div>
       </div>
       <div class="date-wrap-right">
-        <div class="weather"><span class="f-w-400">32</span>优</div>
+        <div class="weather">
+          <img src="../assets/layout/icon-sunny.png" alt="" class="weather-icon" />
+          <div class="weather-label"><span class="f-w-400">32</span>优</div>
+
+        </div>
         <div class="temperature ">20°C<span class="temp">4/17°C</span></div>
       </div>
     </div>
-    <slot></slot> -->
+    <slot></slot>
 
     <div class="footer animate__animated"
       :class="[footerShow ? 'animate__fadeInUp' : 'animate__fadeOutDown', isInitAnimated ? 'handle-duration' : '']">
       <div class="guide-handle" @click="handleFooters"></div>
-      <el-tooltip :content="item.hoverText" placement="top" v-for="(item) in pageList" :key="item.page">
+      <el-tooltip :content="item.hoverText" :offset="5" placement="top" v-for="(item) in pageList" :key="item.page"
+        popper-class="cus-tooltip">
         <img class="guide-icon" :src="item.iconUrl" alt="" />
       </el-tooltip>
     </div>
@@ -61,18 +66,18 @@ import setIcon from '../assets/layout/guide-set.png';
 // 切页icon控制
 const pageList = ref([
   { page: 'home', iconUrl: homeIcon, hoverText: '总览' },
-  // { page: 'car', iconUrl: carIcon, hoverText: '车流' },
-  // { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
-  // { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
-  // { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
-  // { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
-  // { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
-  // { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
-  // { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
-  // { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
-  // { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
-  // { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
-  // { page: 'set', iconUrl: setIcon, hoverText: '设置' }
+  { page: 'car', iconUrl: carIcon, hoverText: '车流' },
+  { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
+  { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
+  { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
+  { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
+  { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
+  { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
+  { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
+  { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
+  { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
+  { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
+  { page: 'set', iconUrl: setIcon, hoverText: '设置' }
 ])
 const footerShow = ref(true)
 const isInitAnimated = ref(false)
@@ -87,8 +92,8 @@ const handleFooters = () => {
 .layout {
   width: 100%;
   height: 100%;
-  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  // background-size: cover;
+  background: url(../assets/layout/bg.jpg) no-repeat center 0;
+  background-size: cover;
 
   .head {
     width: 1880px;
@@ -212,11 +217,11 @@ const handleFooters = () => {
 
   .date-wrap {
     position: absolute;
-    right: 194px;
+    right: 200px;
     top: 23px;
     color: #fff;
     display: flex;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 200;
     line-height: 22px;
 
@@ -238,6 +243,11 @@ const handleFooters = () => {
     }
 
     .weather {
+      display: flex;
+      align-items: center;
+    }
+
+    .weather-label {
       width: 48px;
       height: 19px;
       margin-bottom: 4px;
@@ -245,6 +255,13 @@ const handleFooters = () => {
       border-radius: 3px;
       line-height: 19px;
       text-align: center;
+    }
+
+    .weather-icon {
+      width: 13px;
+      height: 13px;
+      margin-left: 30px;
+      margin-right: 10px;
     }
 
     .temperature {

@@ -70,7 +70,7 @@ const props = defineProps({
 .services {
   width: 100%;
   padding-top: 13px;
-  color: #ccc;
+  // color: #ccc;
 
   .service-head {
     width: 457px;
@@ -87,6 +87,7 @@ const props = defineProps({
     width: 25%;
     display: flex;
   }
+
   .service-icon {
     width: 14px;
     height: 8px;
@@ -107,6 +108,7 @@ const props = defineProps({
   .fail .service-icon {
     background: #E62A44;
   }
+
   .service-data {
     margin-left: 9px;
   }
@@ -115,20 +117,22 @@ const props = defineProps({
   .list-head-item {
     width: 22%;
   }
+
   .data-item.time,
   .list-head-item.time {
     width: 34%;
   }
+
   .result {
     width: 14px;
     height: 8px;
     margin: 10px auto 0;
     background: #7ED321;
+
     &.error {
       background: #E62A44;
     }
   }
-}
-</style>
+}</style>
 
 

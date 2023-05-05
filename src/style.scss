@@ -151,6 +151,29 @@ $designHeight: 1080;
   }
 }
 .my-charts {
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
+.cus-tooltip {
+  background-color: rgba(10, 62, 71, 1) !important;
+}
+.el-tooltip__popper .popper__arrow {
+  border-width: 6px;
+  background-color: rgba(10, 62, 71, 1) !important;
+  border-color: rgba(10, 62, 71, 1) !important;
+}
+.el-popper.is-dark {
+  background: rgba(10, 62, 71, 1) !important;
+  border: 1px solid rgba(10, 62, 71, 1) !important;
+}
+.el-popper.is-dark .el-popper__arrow::before {
+  background: rgba(10, 62, 71, 1) !important;
+}
+.el-popper.is-dark .el-popper__arrow::before {
+  border: 1px solid rgba(10, 62, 71, 1) !important;
+}
+
+// .el-popper.is-light {
+//   background: #872b2b;
+//   border: 1px solid #16439f;
+// }
