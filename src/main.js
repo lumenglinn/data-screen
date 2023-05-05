@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import './style.scss'
 import App from './App.vue'
 import router from './router'
+import ELementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import echarts from './common/echarts.js'
 import { echartsSize } from './common/utils.js'
 import 'animate.css';
@@ -17,4 +19,4 @@ app.config.globalProperties.$echarts = echarts;
 app.config.globalProperties.$echartsSize = echartsSize
 
 
-app.use(router).mount('#app')
+app.use(router).use(ELementPlus).mount('#app')
