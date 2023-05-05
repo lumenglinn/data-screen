@@ -12,9 +12,11 @@
     "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "echarts": "^5.4.2",
+    "element-plus": "^2.3.4",
     "pinia": "^2.0.35",
     "postcss-px-to-viewport-8-plugin": "^1.2.2",
     "sass": "^1.62.1",
+    "swiper": "^9.2.4",
     "vue": "^3.2.47",
     "vue-count-to": "^1.0.13",
     "vue-router": "^4.1.6"
