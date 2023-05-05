@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="head">
+    <!-- <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
@@ -14,8 +14,8 @@
         <div class="handle-item">内场</div>
         <div class="handle-item active">外场</div>
       </div>
-    </div>
-    <div class="page-handle">
+    </div> -->
+    <!-- <div class="page-handle">
       <img class="page-handle-item" src="../assets/layout/right-short.png" @click="exitFullscreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-close.png" @click="closeWindow" alt="" />
@@ -31,11 +31,15 @@
         <div class="temperature ">20°C<span class="temp">4/17°C</span></div>
       </div>
     </div>
-    <slot></slot>
-    <div class="footer animate__animated" :class="[footerShow ? 'animate__fadeInUp' : 'animate__fadeOutDown']">
-      <img class="guide-icon" :src="item.iconUrl" v-for="(item) in pageList" :key="item.page" alt="" />
+    <slot></slot> -->
+
+    <div class="footer animate__animated"
+      :class="[footerShow ? 'animate__fadeInUp' : 'animate__fadeOutDown', isInitAnimated ? 'handle-duration' : '']">
+      <div class="guide-handle" @click="handleFooters"></div>
+      <el-tooltip :content="item.hoverText" placement="top" v-for="(item) in pageList" :key="item.page">
+        <img class="guide-icon" :src="item.iconUrl" alt="" />
+      </el-tooltip>
     </div>
-    <div class="guide-handle" @click="handleFooters"></div>
   </div>
 </template>
 <script setup>
@@ -57,22 +61,24 @@ import setIcon from '../assets/layout/guide-set.png';
 // 切页icon控制
 const pageList = ref([
   { page: 'home', iconUrl: homeIcon, hoverText: '总览' },
-  { page: 'car', iconUrl: carIcon, hoverText: '车流' },
-  { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
-  { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
-  { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
-  { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
-  { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
-  { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
-  { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
-  { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
-  { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
-  { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
-  { page: 'set', iconUrl: setIcon, hoverText: '设置' }
+  // { page: 'car', iconUrl: carIcon, hoverText: '车流' },
+  // { page: 'people', iconUrl: peopleIcon, hoverText: '客流' },
+  // { page: 'quality', iconUrl: qualityIcon, hoverText: '质量' },
+  // { page: 'parking', iconUrl: parkingIcon, hoverText: '停车' },
+  // { page: 'commerce', iconUrl: commerceIcon, hoverText: '商业' },
+  // { page: 'energy', iconUrl: energyIcon, hoverText: '能耗' },
+  // { page: 'monitor', iconUrl: monitorIcon, hoverText: '监控' },
+  // { page: 'equipment', iconUrl: equipmentIcon, hoverText: '设备' },
+  // { page: 'toilet', iconUrl: toiletIcon, hoverText: '厕所' },
+  // { page: 'light', iconUrl: lightIcon, hoverText: '智慧灯杆' },
+  // { page: 'broadcast', iconUrl: broadcastIcon, hoverText: '广播' },
+  // { page: 'set', iconUrl: setIcon, hoverText: '设置' }
 ])
 const footerShow = ref(true)
+const isInitAnimated = ref(false)
 
 const handleFooters = () => {
+  isInitAnimated.value = true
   footerShow.value = !footerShow.value
 }
 
@@ -81,8 +87,8 @@ const handleFooters = () => {
 .layout {
   width: 100%;
   height: 100%;
-  background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  background-size: cover;
+  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
+  // background-size: cover;
 
   .head {
     width: 1880px;
@@ -130,36 +136,32 @@ const handleFooters = () => {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    opacity: 1 !important;
 
     .guide-icon {
+      display: flex;
+      display: inline-block;
       position: relative;
       width: 24px;
       height: 24px;
-
-      &::before {
-        content: 'aaa';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background: #ccc;
-        width: 50px;
-        height: 50px;
-      }
     }
   }
 
   .guide-handle {
-    width: 80px;
-    height: 40px;
+    width: 92px;
+    height: 13px;
     position: absolute;
-    bottom: 50px;
+    bottom: 52px;
     left: 50%;
+    margin-left: -46px;
     background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
     background-size: 100%;
+    opacity: 1 !important;
   }
 
-  // }
+  .handle-duration {
+    animation-duration: 0.3s;
+  }
 
 
   .top-handle-wrap {
