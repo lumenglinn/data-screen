@@ -1,7 +1,45 @@
 
 
 <template>
-  <div ref="EcharRef" class="my-charts"></div>
+  <div class="wrap energy">
+    <div class="wrap-title">能耗监测</div>
+    <div class="energy-box">
+      <div class="energy-item">
+        <div class="item-content">
+          <div class="energy-left">今日用水:14.60t</div>
+          <div class="energy-right">
+            <img v-if="energyObj.val > 1" class="icon-up-down" src="../assets/home/up.png" alt="" />
+            <img v-else class="icon-up-down" src="../assets/home/down.png" alt="" />
+            0%
+          </div>
+        </div>
+      </div>
+      <div class="energy-item">
+        <div class="item-content">
+          <div class="energy-left">今日用水:14.60t</div>
+          <div class="energy-right">
+            <img v-if="energyObj.val > 1" class="icon-up-down" src="../assets/home/up.png" alt="" />
+            <img v-else class="icon-up-down" src="../assets/home/down.png" alt="" />
+            0%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap-cont">
+      <div class="chart-handle">
+        <div class="handle-box">
+          <div class="handle-item" :class="{ 'active': field === 1 }" @click="switchField(1)">内场</div>
+          <div class="handle-item" :class="{ 'active': field === 1 }" @click="switchField(1)">外场</div>
+        </div>
+        <div class="handle-box">
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">月</div>
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">日</div>
+        </div>
+      </div>
+      <div ref="EcharRef" class="my-charts"></div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -12,8 +50,15 @@ const props = defineProps({
   dataSource: {
     type: Array,
     default: []
+  },
+  energyObj: {
+    type: Object,
+    default: {}
   }
 })
+
+const timeType = ref(1)
+const field = ref(1)
 
 onMounted(() => {
   const myChart = proxy.$echarts.init(EcharRef.value);
@@ -86,9 +131,78 @@ onMounted(() => {
   });
 });
 
+const switchTimeType = (val) => {
+  timeType.value = val
+}
+
+const switchField = (val) => {
+  field.value = val
+}
+
 </script>
 
 
-<style scoped></style>
+<style lang="scss" scoped>
+.energy {
+  .energy-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .energy-item {
+    margin-top: 15px;
+    position: relative;
+    width: 230px;
+    height: 38px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    line-height: 38px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.59;
+      background: rgba(74, 74, 74, 0.61);
+      border: 1px solid rgba(147, 226, 239, 1);
+      box-shadow: inset 0px 0px 39px 2px rgba(92, 188, 218, 0.82);
+    }
+  }
+
+  .item-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .energy-left {
+    padding-left: 10px;
+  }
+
+  .energy-right {
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+  .icon-up-down {
+    padding-right: 6px;
+  }
+
+  .wrap-cont {
+    height: 191px;
+  }
+}
+</style>
 
 
