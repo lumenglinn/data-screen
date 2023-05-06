@@ -1,25 +1,14 @@
 <template>
   <div class="layout">
-    <div class="head">
+    <!-- <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
-    </div>
-    <div class="top-handle-wrap">
-      <div class="handle-box">
-        <div class="handle-item">AB区</div>
-        <div class="handle-item active">A区</div>
-        <div class="handle-item">B区</div>
-      </div>
-      <div class="handle-box">
-        <div class="handle-item">内场</div>
-        <div class="handle-item active">外场</div>
-      </div>
     </div>
     <div class="page-handle">
       <img class="page-handle-item" src="../assets/layout/right-exit.png" @click="exitFullscreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
       <img class="page-handle-item" src="../assets/layout/right-close.png" @click="closeWindow" alt="" />
-    </div>
+    </div> -->
     <div class="date-wrap">
       <div class="date-wrap-left">
         <div class="date">2023 - 04 - 17</div>
@@ -28,7 +17,7 @@
       </div>
       <div class="date-wrap-right">
         <div class="weather">
-          <img src="../assets/layout/icon-sunny.png" alt="" class="weather-icon" />
+          <img :src="weatherObj.weatherIcon" alt="" class="weather-icon" />
           <div class="weather-label"><span class="f-w-400">32</span>优</div>
 
         </div>
@@ -48,6 +37,7 @@
   </div>
 </template>
 <script setup>
+import { reactive } from "vue";
 import { fullScreen, exitFullscreen, closeWindow } from '@/common/utils'
 import homeIcon from '../assets/layout/guide-home.png';
 import carIcon from '../assets/layout/guide-car.png';
@@ -62,6 +52,29 @@ import toiletIcon from '../assets/layout/guide-toilet.png';
 import lightIcon from '../assets/layout/guide-light.png';
 import broadcastIcon from '../assets/layout/guide-broadcast.png';
 import setIcon from '../assets/layout/guide-set.png';
+
+import sunnyIcon from '../assets/layout/icon-sunny.png';
+import snowIcon from '../assets/layout/icon-snow.png';
+import rainIcon from '../assets/layout/icon-rain.png';
+import overcastIcon from '../assets/layout/icon-overcast.png';
+import cloudyIcon from '../assets/layout/icon-cloudy.png';
+
+// 天气对象
+const weatherObj = reactive({
+  weather: 1
+})
+
+weatherObj.weatherIcon = computed(() => {
+  const map = {
+    1: sunnyIcon,
+    2: snowIcon,
+    3: rainIcon,
+    4: overcastIcon,
+    5: cloudyIcon
+  }
+  return map[weatherObj.weather]
+});
+
 
 // 切页icon控制
 const pageList = ref([
@@ -92,8 +105,8 @@ const handleFooters = () => {
 .layout {
   width: 100%;
   height: 100%;
-  background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  background-size: cover;
+  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
+  // background-size: cover;
 
   .head {
     width: 1880px;
@@ -169,37 +182,6 @@ const handleFooters = () => {
   }
 
 
-  .top-handle-wrap {
-    font-size: 18px;
-    color: #ffffff;
-    font-weight: 600;
-
-    .handle-box {
-      display: flex;
-      box-shadow: inset 0px 0px 18px 1px rgba(0, 255, 255, 0.59);
-    }
-
-    .handle-box:nth-child(1) {
-      position: absolute;
-      top: 88px;
-      left: 20px;
-    }
-
-    .handle-box:nth-child(2) {
-      position: absolute;
-      top: 88px;
-      left: 307px;
-    }
-
-    .handle-item {
-      padding: 4px 11px;
-    }
-
-    .active {
-      background-color: #5BDBD3;
-      border-radius: 4px;
-    }
-  }
 
   .page-handle {
     width: 112px;
