@@ -1,49 +1,52 @@
 
 
 <template>
-  <div class="services">
-    <div class="service-head">
-      <div class="service-item total">
-        <div class="service-icon"></div>
-        <div class="service-name">总任务</div>
-        <div class="service-data">231</div>
+  <div class="wrap services">
+    <div class="wrap-title">服务质量</div>
+    <div class="wrap-cont">
+      <div class="service-head">
+        <div class="service-item total">
+          <div class="service-icon"></div>
+          <div class="service-name">总任务</div>
+          <div class="service-data">231</div>
+        </div>
+        <div class="service-item completed">
+          <div class="service-icon"></div>
+          <div class="service-name">已完成</div>
+          <div class="service-data">231</div>
+        </div>
+        <div class="service-item incomplete">
+          <div class="service-icon"></div>
+          <div class="service-name">未完成</div>
+          <div class="service-data">231</div>
+        </div>
+        <div class="service-item fail">
+          <div class="service-icon"></div>
+          <div class="service-name">不合格</div>
+          <div class="service-data">231</div>
+        </div>
       </div>
-      <div class="service-item completed">
-        <div class="service-icon"></div>
-        <div class="service-name">已完成</div>
-        <div class="service-data">231</div>
-      </div>
-      <div class="service-item incomplete">
-        <div class="service-icon"></div>
-        <div class="service-name">未完成</div>
-        <div class="service-data">231</div>
-      </div>
-      <div class="service-item fail">
-        <div class="service-icon"></div>
-        <div class="service-name">不合格</div>
-        <div class="service-data">231</div>
-      </div>
-    </div>
-    <div class="list-table equipment">
-      <div class="list-head">
-        <div class="list-head-item">任务号</div>
-        <div class="list-head-item">项目</div>
-        <div class="list-head-item time">时间</div>
-        <div class="list-head-item">是否合格</div>
-      </div>
-      <div class="list-body">
-        <swiper :slides-per-view="5" :autoplay="{ delay: 2000, disableOnInteraction: false }" :speed="500"
-          :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true" :modules="modules"
-          style="height: 120px" ref="mySwiper">
-          <swiper-slide v-for="(item, index) in dataSource" :key="index" class="list-data">
-            <div class="data-item">{{ item.no }}</div>
-            <div class="data-item">{{ item.name }}</div>
-            <div class="data-item time">{{ item.time }}</div>
-            <div class="data-item">
-              <div class="result" :class="{ 'error': item.result === 1 }"></div>
-            </div>
-          </swiper-slide>
-        </swiper>
+      <div class="list-table equipment">
+        <div class="list-head">
+          <div class="list-head-item">任务号</div>
+          <div class="list-head-item">项目</div>
+          <div class="list-head-item time">时间</div>
+          <div class="list-head-item">是否合格</div>
+        </div>
+        <div class="list-body">
+          <swiper :slides-per-view="5" :autoplay="{ delay: 2000, disableOnInteraction: false }" :speed="500"
+            :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true" :modules="modules"
+            style="height: 120px" ref="mySwiper">
+            <swiper-slide v-for="(item, index) in dataSource" :key="index" class="list-data">
+              <div class="data-item">{{ item.no }}</div>
+              <div class="data-item">{{ item.name }}</div>
+              <div class="data-item time">{{ item.time }}</div>
+              <div class="data-item">
+                <div class="result" :class="{ 'error': item.result === 1 }"></div>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
       </div>
     </div>
   </div>
@@ -133,6 +136,7 @@ const props = defineProps({
       background: #E62A44;
     }
   }
-}</style>
+}
+</style>
 
 
