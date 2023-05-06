@@ -1,12 +1,25 @@
 
 
 <template>
-  <div ref="EcharRef" class="my-charts"></div>
+  <div class="wrap">
+    <div class="wrap-title">车流</div>
+    <div class="wrap-cont">
+      <div class="chart-handle">
+        <div class="handle-box">
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
+          <div class="handle-item" :class="{ 'active': timeType === 2 }" @click="switchTimeType(2)">月</div>
+          <div class="handle-item" :class="{ 'active': timeType === 3 }" @click="switchTimeType(3)">日</div>
+        </div>
+      </div>
+      <div ref="EcharRef" class="my-charts"></div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
+const timeType = ref(1)
 
 const props = defineProps({
   dataSource: {
@@ -128,6 +141,10 @@ onMounted(() => {
     ]
   })
 })
+
+const switchTimeType = (val) => {
+  timeType.value = val
+}
 
 </script>
 
