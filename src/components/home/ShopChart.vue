@@ -1,21 +1,37 @@
 <template>
-  <div ref="EcharRef" class="my-charts"></div>
+  <div class="wrap">
+    <div class="wrap-title">商铺销售</div>
+    <div class="wrap-cont">
+      <div class="chart-handle">
+        <div class="handle-box">
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">月</div>
+          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">日</div>
+        </div>
+      </div>
+      <div ref="EcharRef" class="my-charts"></div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 const EcharRef = ref(null)
 const { proxy } = getCurrentInstance()
+const timeType = ref(1)
 
 const props = defineProps({
   dataSource: {
-    type: Array,
-    default: []
+    type: Object,
+    default: {
+      yData: [],
+      data: []
+    }
   }
 })
 
 onMounted(() => {
   const myChart = proxy.$echarts.init(EcharRef.value);
-  myChart.setOption({
+  const barOption = {
     xAxis: {
       type: 'value',
       show: false,
@@ -29,7 +45,7 @@ onMounted(() => {
       },
       axisLine: { show: false },
       axisTick: { show: false },
-      data: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店']
+      data: props.dataSource?.yData
     },
     grid: {
       top: proxy.$echartsSize(70),
@@ -38,9 +54,17 @@ onMounted(() => {
       right: proxy.$echartsSize(28),
       show: false
     },
+    dataZoom: [{
+      //滑动条
+      yAxisIndex: 0, //这里是从X轴的0刻度开始
+      show: false, //是否显示滑动条，不影响使用
+      type: "slider", // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+      startValue: 0, // 从头开始。
+      endValue: 7, // 一次性展示5个。
+    },],
     series: [
       {
-        data: props.dataSource,
+        data: props.dataSource?.data,
         type: 'bar',
         showBackground: true,
         itemStyle: {
@@ -71,8 +95,27 @@ onMounted(() => {
         }
       }
     ]
-  });
+  }
+  myChart.setOption(barOption);
+
+  //自动滚动
+  var timeOut = setInterval(() => {
+    if (barOption.dataZoom[0].endValue == barOption.series[0].data.length) {
+      barOption.dataZoom[0].endValue = 7;
+      barOption.dataZoom[0].startValue = 0;
+    } else {
+      barOption.dataZoom[0].endValue = barOption.dataZoom[0].endValue + 1;
+      barOption.dataZoom[0].startValue = barOption.dataZoom[0].startValue + 1;
+    }
+    //重新把配置项给实例对象
+    myChart.setOption(barOption);
+  }, 2000)
+
 });
+
+const switchTimeType = (val) => {
+  timeType.value = val
+}
 
 </script>
 
