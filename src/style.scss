@@ -1,19 +1,3 @@
-@use "sass:math";
-
-// 默认设计稿的宽高度
-$designWidth: 1920;
-$designHeight: 1080;
-
-// px 转为 vw 的函数
-@function vw($px) {
-  @return math.div($px, $designWidth) * 100vw;
-}
-
-// px 转为 vh 的函数
-@function vh($px) {
-  @return math.div($px, $designHeight) * 100vh;
-}
-
 #app {
   position: absolute;
   top: 0;
@@ -23,6 +7,7 @@ $designHeight: 1080;
   overflow: hidden;
   font-size: 14px;
   color: #ffffff;
+  min-height: 1080px;
 }
 .f-w-400 {
   font-weight: 400;
@@ -173,7 +158,36 @@ $designHeight: 1080;
   border: 1px solid rgba(10, 62, 71, 1) !important;
 }
 
-// .el-popper.is-light {
-//   background: #872b2b;
-//   border: 1px solid #16439f;
-// }
+.top-handle-wrap {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+
+  .handle-box {
+    display: flex;
+    box-shadow: inset 0px 0px 18px 1px rgba(0, 255, 255, 0.59);
+  }
+
+  .handle-box:nth-child(1) {
+    position: absolute;
+    top: 88px;
+    left: 20px;
+  }
+
+  .handle-box:nth-child(2) {
+    position: absolute;
+    top: 88px;
+    left: 307px;
+  }
+
+  .handle-item {
+    cursor: pointer;
+    padding: 4px 11px;
+  }
+
+  .active {
+    background-color: #5BDBD3;
+    border-radius: 4px;
+  }
+}
+
