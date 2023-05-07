@@ -12,20 +12,21 @@
           <div class="handle-item" :class="{ 'active': field === 'outField' }" @click="switchField('outField')">外场</div>
         </div>
       </div>
-      <home-top />
-      <home-ratio :ratioData="ratioData" />
+      <home-top :topData="state.topData" />
+      <home-ratio :ratioData="state.ratioData" />
       <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
         class="content-left animate__animated">
-        <shop-chart class="bar-chart" :dataSource="shopData" ref="shopChartRef" />
-        <services :dataSource="serviceData" ref="serviceRef" />
-        <passenger-chart :dataSource="passengerData" ref="passengerRef" />
+        <shop-chart class="bar-chart" :dataSource="state.shopData" @updateData="getShopData" ref="shopChartRef" />
+        <services :dataSource="state.serviceData" ref="serviceRef" />
+        <passenger-chart :dataSource="state.passengerData" @updateData="getPassengerData" ref="passengerRef" />
       </div>
       <div
         :class="[footerShow ? 'animate__fadeInRight' : 'animate__fadeOutRight', isInitAnimated ? 'handle-duration' : '']"
         class="content-right animate__animated">
-        <car-chart :dataSource="carData" ref="carChartRef" />
-        <energy-chart :dataSource="energyData" :energyObj="energyObj" ref="energyChartRef" />
-        <equipment ref="equipmentRef" />
+        <car-chart :dataSource="state.carData" @updateData="getCarData" ref="carChartRef" />
+        <energy-chart :dataSource="state.energyData" @updateData="getEnergyData" :energyObj="state.energyObj"
+          ref="energyChartRef" />
+        <equipment :dataSource="state.equipmentData" ref="equipmentRef" />
       </div>
       <div class="handle-content" @click="handleContent"></div>
     </div>
@@ -43,40 +44,35 @@ const carChartRef = ref(null)
 const energyChartRef = ref(null)
 const equipmentRef = ref(null)
 
-const shopData = reactive({
-  yData: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店'],
-  data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1, 0.35, 0.29, 0.2, 0.1]
-})// 商铺图表数据
-const carData = reactive([20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10])// 车流图表数据
-const energyData = reactive([1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2])// 能源图表数据
-const passengerData = reactive([200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690]) // 客流图表数据
-// 服务质量数据
-const serviceData = reactive([
-  { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
-  { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
-  { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
-])
-
-// 顶部数据
-const topData = reactive({
-  data: 1900,
-})
-
-// 右边比率数据
-const ratioData = reactive({
-  val: 9
-})
-
-// 能耗数据
-const energyObj = reactive({
-  val: 9
+const state = reactive({
+  shopData: {
+    yData: [],
+    data: []
+  }, // 商铺图表数据
+  carData: [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10], // 车流图表数据
+  energyData: [1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2], // 能源图表数据
+  passengerData: [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690], // 客流图表数据
+  serviceData: [
+    { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
+    { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
+    { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
+    { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
+    { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
+    { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
+    { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
+    { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
+    { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
+    { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
+  ], // 服务质量数据
+  equipmentData: [
+    { type: '风机', run: '7/23', failure: '0/0' },
+    { type: '风机', run: '7/23', failure: '0/4' },
+    { type: '风机', run: '7/23', failure: '0/0' },
+    { type: '风机', run: '7/23', failure: '0/0' }
+  ], // 设备数据
+  topData: { data: 1900 }, // 顶部数据
+  ratioData: { val: 9 }, // 右边比率数据
+  energyObj: { val: 9 }, // 能耗数据
 })
 
 const field = ref('outField') // 场内/场外
@@ -127,22 +123,22 @@ const refreshData = () => {
 
 // 获取商铺数据
 async function getShopData() {
-  const params = {
-    field: field.value,
-    area: area.value,
-    timeType: shopChartRef.value.timeType
-  }
-  const res = await proxy.$http('post', 'getInfoForWeb', params)
+  // const params = {
+  //   field: field.value,
+  //   area: area.value,
+  //   timeType: shopChartRef.value.timeType
+  // }
+  // const res = await proxy.$http('post', 'getInfoForWeb', params)
+  setTimeout(() => {
+    state.shopData = {
+      yData: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店'],
+      data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1, 0.35, 0.29, 0.2, 0.1]
+    }
+  }, 1000)
 }
 
 // 获取服务质量数据
 async function getServerData() { }
-
-// 获取右上角比率数据
-async function getRatioData() { }
-
-// 获取上方数据
-async function getMainData() { }
 
 // 获取客流数据
 async function getPassengerData() { }
@@ -155,6 +151,12 @@ async function getEnergyData() { }
 
 // 获取设备监测数据
 async function getEquipmentData() { }
+
+// 获取右上角比率数据
+async function getRatioData() { }
+
+// 获取上方数据
+async function getMainData() { }
 
 const handleContent = () => {
   isInitAnimated.value = true

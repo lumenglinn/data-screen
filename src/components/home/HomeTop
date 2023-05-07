@@ -49,12 +49,9 @@
   import countTo from "@/components/CountTo";
 
   const props = defineProps({
-    dataSource: {
+    topData: {
       type: Object,
-      default: {
-        yData: [],
-        data: []
-      }
+      default: {}
     }
   })
 

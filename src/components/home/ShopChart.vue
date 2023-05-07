@@ -5,8 +5,8 @@
       <div class="chart-handle">
         <div class="handle-box">
           <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
-          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">月</div>
-          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">日</div>
+          <div class="handle-item" :class="{ 'active': timeType === 2 }" @click="switchTimeType(2)">月</div>
+          <div class="handle-item" :class="{ 'active': timeType === 3 }" @click="switchTimeType(3)">日</div>
         </div>
       </div>
       <div ref="EcharRef" class="my-charts"></div>
@@ -15,9 +15,11 @@
 </template>
 
 <script setup>
-const EcharRef = ref(null)
 const { proxy } = getCurrentInstance()
+const EcharRef = ref(null)
 const timeType = ref(1)
+const emit = defineEmits(['updateData'])
+let timer, myChart, chartOption
 
 const props = defineProps({
   dataSource: {
@@ -33,9 +35,20 @@ defineExpose({
   timeType
 })
 
+// 重新赋值
+watch(() => props.dataSource, (newVal, oldVal) => {
+  if (timer) clearInterval(timer)
+  setEchartsOption()
+}, { deep: true })
+
 onMounted(() => {
-  const myChart = proxy.$echarts.init(EcharRef.value);
-  const barOption = {
+  myChart = proxy.$echarts.init(EcharRef.value);
+  setEchartsOption()
+  window.addEventListener('resize', myChart.resize)
+})
+
+const setEchartsOption = () => {
+  chartOption = {
     xAxis: {
       type: 'value',
       show: false,
@@ -100,25 +113,28 @@ onMounted(() => {
       }
     ]
   }
-  myChart.setOption(barOption);
+  myChart.setOption(chartOption);
+  rollData()
+}
 
+const rollData = () => {
   //自动滚动
-  var timeOut = setInterval(() => {
-    if (barOption.dataZoom[0].endValue == barOption.series[0].data.length) {
-      barOption.dataZoom[0].endValue = 7;
-      barOption.dataZoom[0].startValue = 0;
+  timer = setInterval(() => {
+    if (chartOption.dataZoom[0].endValue == chartOption.series[0].data.length) {
+      chartOption.dataZoom[0].endValue = 7;
+      chartOption.dataZoom[0].startValue = 0;
     } else {
-      barOption.dataZoom[0].endValue = barOption.dataZoom[0].endValue + 1;
-      barOption.dataZoom[0].startValue = barOption.dataZoom[0].startValue + 1;
+      chartOption.dataZoom[0].endValue = chartOption.dataZoom[0].endValue + 1;
+      chartOption.dataZoom[0].startValue = chartOption.dataZoom[0].startValue + 1;
     }
     //重新把配置项给实例对象
-    myChart.setOption(barOption);
+    myChart.setOption(chartOption);
   }, 2000)
-
-});
+}
 
 const switchTimeType = (val) => {
   timeType.value = val
+  emit('updateData')
 }
 
 </script>

@@ -42,7 +42,7 @@
   .wrap-cont {
     position: relative;
     width: 484px;
-    height: vh(244);
+    height: 244px;
     margin-top: 15px;
 
     &::before {
@@ -83,6 +83,7 @@
   right: 30px;
   display: flex;
   justify-content: flex-end;
+  z-index: 1;
 
   .handle-box {
     background: #0a3e47;
@@ -100,6 +101,7 @@
     font-size: 16px;
     line-height: 30px;
     text-align: center;
+    cursor: pointer;
   }
   .handle-item.active {
     background: #5bdbd3;

@@ -29,12 +29,12 @@
       <div class="chart-handle">
         <div class="handle-box">
           <div class="handle-item" :class="{ 'active': field === 1 }" @click="switchField(1)">内场</div>
-          <div class="handle-item" :class="{ 'active': field === 1 }" @click="switchField(1)">外场</div>
+          <div class="handle-item" :class="{ 'active': field === 2 }" @click="switchField(2)">外场</div>
         </div>
         <div class="handle-box">
           <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
-          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">月</div>
-          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">日</div>
+          <div class="handle-item" :class="{ 'active': timeType === 2 }" @click="switchTimeType(2)">月</div>
+          <div class="handle-item" :class="{ 'active': timeType === 3 }" @click="switchTimeType(3)">日</div>
         </div>
       </div>
       <div ref="EcharRef" class="my-charts"></div>
@@ -43,8 +43,12 @@
 </template>
 
 <script setup>
-const EcharRef = ref(null)
 const { proxy } = getCurrentInstance()
+const EcharRef = ref(null)
+const emit = defineEmits(['updateData'])
+const timeType = ref(1)
+const field = ref(1)
+let myChart, chartOption
 
 const props = defineProps({
   dataSource: {
@@ -57,17 +61,24 @@ const props = defineProps({
   }
 })
 
-const timeType = ref(1)
-const field = ref(1)
-
 defineExpose({
   timeType,
   field
 })
 
+// 重新赋值
+watch(() => props.dataSource, (newVal, oldVal) => {
+  setEchartsOption()
+}, { deep: true })
+
 onMounted(() => {
-  const myChart = proxy.$echarts.init(EcharRef.value);
-  myChart.setOption({
+  myChart = proxy.$echarts.init(EcharRef.value);
+  setEchartsOption()
+  window.addEventListener('resize', myChart.resize)
+})
+
+const setEchartsOption = () => {
+  chartOption = {
     xAxis: {
       type: 'category',
       axisLabel: {
@@ -133,15 +144,18 @@ onMounted(() => {
         barWidth: '25%',
       }
     ]
-  });
-});
+  }
+  myChart.setOption(chartOption)
+}
 
 const switchTimeType = (val) => {
   timeType.value = val
+  emit('updateData')
 }
 
 const switchField = (val) => {
   field.value = val
+  emit('updateData')
 }
 
 </script>

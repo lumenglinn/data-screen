@@ -50,12 +50,16 @@
 
 <script setup>
 import countTo from "@/components/CountTo";
-const dataSource = ref([
-  { type: '风机', run: '7/23', failure: '0/0' },
-  { type: '风机', run: '7/23', failure: '0/4' },
-  { type: '风机', run: '7/23', failure: '0/0' },
-  { type: '风机', run: '7/23', failure: '0/0' }
-])
+const props = defineProps({
+  dataSource: {
+    type: Array,
+    default: []
+  },
+  energyObj: {
+    type: Object,
+    default: {}
+  }
+})
 
 onMounted(() => {
 

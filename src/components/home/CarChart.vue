@@ -20,6 +20,8 @@
 const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
 const timeType = ref(1)
+const emit = defineEmits(['updateData'])
+let myChart, chartOption
 
 const props = defineProps({
   dataSource: {
@@ -32,9 +34,19 @@ defineExpose({
   timeType
 })
 
+// 重新赋值
+watch(() => props.dataSource, (newVal, oldVal) => {
+  setEchartsOption()
+}, { deep: true })
+
 onMounted(() => {
-  const myChart = proxy.$echarts.init(EcharRef.value);
-  myChart.setOption({
+  myChart = proxy.$echarts.init(EcharRef.value);
+  setEchartsOption()
+  window.addEventListener('resize', myChart.resize)
+})
+
+const setEchartsOption = () => {
+  chartOption = {
     // legend: {
     //   orient: 'horizontal',
     //   icon: 'rect',
@@ -143,11 +155,13 @@ onMounted(() => {
         data: props.dataSource
       }
     ]
-  })
-})
+  }
+  myChart.setOption(chartOption)
+}
 
 const switchTimeType = (val) => {
   timeType.value = val
+  emit('updateData')
 }
 
 </script>

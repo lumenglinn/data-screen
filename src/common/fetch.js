@@ -1,7 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
 import { ElMessage } from 'element-plus'
-// import { isObject } from './utils'
 const BASE_URL = '/gateway-api'
 
 const instance = axios.create({
@@ -115,7 +114,6 @@ instance.interceptors.response.use(
     if (error.response && error.response.status !== 401) {
       ElMessage.error(error.message)
     }
-
     return error
   }
 )

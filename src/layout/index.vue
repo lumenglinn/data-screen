@@ -17,7 +17,7 @@
       </div>
       <div class="date-wrap-right">
         <div class="weather">
-          <img :src="weatherObj.weatherIcon" alt="" class="weather-icon" />
+          <img :src="state.weatherObj.weatherIcon" alt="" class="weather-icon" />
           <div class="weather-label"><span class="f-w-400">32</span>优</div>
 
         </div>
@@ -60,11 +60,13 @@ import overcastIcon from '@/assets/images/layout/icon-overcast.png';
 import cloudyIcon from '@/assets/images/layout/icon-cloudy.png';
 
 // 天气对象
-const weatherObj = reactive({
-  weather: 1
+const state = reactive({
+  weatherObj: {
+    weather: 1
+  }
 })
 
-weatherObj.weatherIcon = computed(() => {
+state.weatherObj.weatherIcon = computed(() => {
   const map = {
     1: sunnyIcon,
     2: snowIcon,
@@ -72,7 +74,7 @@ weatherObj.weatherIcon = computed(() => {
     4: overcastIcon,
     5: cloudyIcon
   }
-  return map[weatherObj.weather]
+  return map[state.weatherObj.weather]
 });
 
 // 切页icon控制
@@ -162,12 +164,12 @@ const handleFooters = () => {
 
   .guide-handle {
     width: 92px;
-    height: 13px;
+    height: 33px;
     position: absolute;
     bottom: 52px;
     left: 50%;
     margin-left: -46px;
-    background: url(@/assets/images/layout/icon-bottom.png) no-repeat center 0;
+    background: url(@/assets/images/layout/icon-bottom.png) no-repeat center bottom;
     background-size: 100%;
     opacity: 1 !important;
   }
