@@ -8,8 +8,8 @@
         <div class="item-content">
           <div class="energy-left">今日用水:14.60t</div>
           <div class="energy-right">
-            <img v-if="energyObj.val > 1" class="icon-up-down" src="../assets/home/up.png" alt="" />
-            <img v-else class="icon-up-down" src="../assets/home/down.png" alt="" />
+            <img v-if="energyObj.val > 1" class="icon-up-down" src="@/assets/images/home/up.png" alt="" />
+            <img v-else class="icon-up-down" src="@/assets/images/home/down.png" alt="" />
             0%
           </div>
         </div>
@@ -18,8 +18,8 @@
         <div class="item-content">
           <div class="energy-left">今日用水:14.60t</div>
           <div class="energy-right">
-            <img v-if="energyObj.val > 1" class="icon-up-down" src="../assets/home/up.png" alt="" />
-            <img v-else class="icon-up-down" src="../assets/home/down.png" alt="" />
+            <img v-if="energyObj.val > 1" class="icon-up-down" src="@/assets/images/home/up.png" alt="" />
+            <img v-else class="icon-up-down" src="@/assets/images/home/down.png" alt="" />
             0%
           </div>
         </div>

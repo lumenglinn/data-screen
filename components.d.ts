@@ -11,7 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CarChart: typeof import('./src/components/home/CarChart.vue')['default']
     EnergyChart: typeof import('./src/components/home/EnergyChart.vue')['default']
-    Equipment: typeof import('./src/components/home/equipment.vue')['default']
+    Equipment: typeof import('./src/components/home/Equipment.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     PassengerChart: typeof import('./src/components/home/PassengerChart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

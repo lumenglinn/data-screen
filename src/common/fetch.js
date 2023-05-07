@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
-import Notify from './notifyError.js'
-import { isObject } from './utils'
+// import Notify from './notifyError.js'
+// import { isObject } from './utils'
 const BASE_URL = '/gateway-api'
 
 const instance = axios.create({
@@ -15,7 +15,6 @@ const instance = axios.create({
 // axios请求拦截器
 instance.interceptors.request.use(
   (config) => {
-
     // 每个接口新增时间戳
     const timestamp = new Date().getTime()
     if (config.url && config.url.includes('?')) {
@@ -45,9 +44,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     // 全局取消loading
-    if (typeof response.config.data === 'string' && !JSON.parse(response.config.data).data.hideLoading) {
-      endLoading()
-    }
+    // if (typeof response.config.data === 'string' && !JSON.parse(response.config.data).data.hideLoading) {
+    //   endLoading()
+    // }
     const type = response.request.responseType || ''
     // 下载类型特殊处理文件名
     if (type.includes('blob')) {
@@ -73,8 +72,8 @@ instance.interceptors.response.use(
   },
   (error) => {
     console.log('error', error)
-    // 解决fetch中js中断报错没有日志
-    endLoading()
+    // // 解决fetch中js中断报错没有日志
+    // endLoading()
     switch (error.response && error.response.status) {
       case 400:
         error.message = '请求错误(400)'
@@ -113,11 +112,11 @@ instance.interceptors.response.use(
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
       error.message = '网络异常'
     }
-    if (error.response && error.response.status !== 401) {
-      Notify({
-        message: error.message
-      })
-    }
+    // if (error.response && error.response.status !== 401) {
+    //   Notify({
+    //     message: error.message
+    //   })
+    // }
 
     return error
   }

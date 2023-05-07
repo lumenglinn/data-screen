@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <div class="content">
-      <!-- <div class="top-handle-wrap">
+      <div class="top-handle-wrap">
         <div class="handle-box">
           <div class="handle-item" :class="{ 'active': area === 'AB' }" @click="switchArea('AB')">AB区</div>
           <div class="handle-item" :class="{ 'active': area === 'A' }" @click="switchArea('A')">A区</div>
@@ -11,7 +11,7 @@
           <div class="handle-item" :class="{ 'active': field === 'inField' }" @click="switchField('inField')">内场</div>
           <div class="handle-item" :class="{ 'active': field === 'outField' }" @click="switchField('outField')">外场</div>
         </div>
-      </div> -->
+      </div>
       <home-top />
       <home-ratio :ratioData="ratioData" />
       <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
@@ -34,6 +34,7 @@
 
 <script setup>
 import { onMounted, reactive } from "vue";
+const { proxy } = getCurrentInstance()
 
 const shopChartRef = ref(null)
 const serviceRef = ref(null)
@@ -125,36 +126,34 @@ const refreshData = () => {
 }
 
 // 获取商铺数据
-async function getShopData () {
-  const params = {
-    field: field.value,
-    area: area.value
-  }
-  console.log(params)
-  // console.log(sonRef.value)
-  const res = await proxy.$http('post', 'getInfoForWeb', params)
+async function getShopData() {
+  // const params = {
+  //   field: field.value,
+  //   area: area.value
+  // }
+  // const res = await proxy.$http('post', 'getInfoForWeb', params)
 }
 
 // 获取服务质量数据
-async function getServerData () {}
+async function getServerData() { }
 
 // 获取右上角比率数据
-async function getRatioData () { }
+async function getRatioData() { }
 
 // 获取上方数据
-async function getMainData () { }
+async function getMainData() { }
 
 // 获取客流数据
-async function getPassengerData () { }
+async function getPassengerData() { }
 
 // 获取车流数据
-async function getCarData () { }
+async function getCarData() { }
 
 // 获取能耗监测数据
-async function getEnergyData () { }
+async function getEnergyData() { }
 
 // 获取设备监测数据
-async function getEquipmentData () { }
+async function getEquipmentData() { }
 
 const handleContent = () => {
   isInitAnimated.value = true
@@ -180,7 +179,7 @@ const switchField = (val) => {
     top: 50%;
     right: 0;
     margin-top: -50px;
-    background: url(../assets/layout/icon-center.png) no-repeat center 0;
+    background: url(@/assets/images/layout/icon-center.png) no-repeat center 0;
     background-size: 100%;
     opacity: 1 !important;
   }

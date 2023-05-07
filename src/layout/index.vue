@@ -1,14 +1,14 @@
 <template>
   <div class="layout">
-    <!-- <div class="head">
+    <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
     <div class="page-handle">
-      <img class="page-handle-item" src="../assets/layout/right-exit.png" @click="exitFullscreen" alt="" />
-      <img class="page-handle-item" src="../assets/layout/right-full.png" @click="fullScreen" alt="" />
-      <img class="page-handle-item" src="../assets/layout/right-close.png" @click="closeWindow" alt="" />
-    </div> -->
+      <img class="page-handle-item" src="@/assets/images/layout/right-exit.png" @click="exitFullscreen" alt="" />
+      <img class="page-handle-item" src="@/assets/images/layout/right-full.png" @click="fullScreen" alt="" />
+      <img class="page-handle-item" src="@/assets/images/layout/right-close.png" @click="closeWindow" alt="" />
+    </div>
     <div class="date-wrap">
       <div class="date-wrap-left">
         <div class="date">2023 - 04 - 17</div>
@@ -39,25 +39,25 @@
 <script setup>
 import { reactive } from "vue";
 import { fullScreen, exitFullscreen, closeWindow } from '@/common/utils'
-import homeIcon from '../assets/layout/guide-home.png';
-import carIcon from '../assets/layout/guide-car.png';
-import peopleIcon from '../assets/layout/guide-people.png';
-import qualityIcon from '../assets/layout/guide-quality.png';
-import parkingIcon from '../assets/layout/guide-parking.png';
-import commerceIcon from '../assets/layout/guide-commerce.png';
-import energyIcon from '../assets/layout/guide-energy.png';
-import monitorIcon from '../assets/layout/guide-monitor.png';
-import equipmentIcon from '../assets/layout/guide-equipment.png';
-import toiletIcon from '../assets/layout/guide-toilet.png';
-import lightIcon from '../assets/layout/guide-light.png';
-import broadcastIcon from '../assets/layout/guide-broadcast.png';
-import setIcon from '../assets/layout/guide-set.png';
+import homeIcon from '@/assets/images/layout/guide-home.png';
+import carIcon from '@/assets/images/layout/guide-car.png';
+import peopleIcon from '@/assets/images/layout/guide-people.png';
+import qualityIcon from '@/assets/images/layout/guide-quality.png';
+import parkingIcon from '@/assets/images/layout/guide-parking.png';
+import commerceIcon from '@/assets/images/layout/guide-commerce.png';
+import energyIcon from '@/assets/images/layout/guide-energy.png';
+import monitorIcon from '@/assets/images/layout/guide-monitor.png';
+import equipmentIcon from '@/assets/images/layout/guide-equipment.png';
+import toiletIcon from '@/assets/images/layout/guide-toilet.png';
+import lightIcon from '@/assets/images/layout/guide-light.png';
+import broadcastIcon from '@/assets/images/layout/guide-broadcast.png';
+import setIcon from '@/assets/images/layout/guide-set.png';
 
-import sunnyIcon from '../assets/layout/icon-sunny.png';
-import snowIcon from '../assets/layout/icon-snow.png';
-import rainIcon from '../assets/layout/icon-rain.png';
-import overcastIcon from '../assets/layout/icon-overcast.png';
-import cloudyIcon from '../assets/layout/icon-cloudy.png';
+import sunnyIcon from '@/assets/images/layout/icon-sunny.png';
+import snowIcon from '@/assets/images/layout/icon-snow.png';
+import rainIcon from '@/assets/images/layout/icon-rain.png';
+import overcastIcon from '@/assets/images/layout/icon-overcast.png';
+import cloudyIcon from '@/assets/images/layout/icon-cloudy.png';
 
 // 天气对象
 const weatherObj = reactive({
@@ -74,7 +74,6 @@ weatherObj.weatherIcon = computed(() => {
   }
   return map[weatherObj.weather]
 });
-
 
 // 切页icon控制
 const pageList = ref([
@@ -105,14 +104,14 @@ const handleFooters = () => {
 .layout {
   width: 100%;
   height: 100%;
-  // background: url(../assets/layout/bg.jpg) no-repeat center 0;
-  // background-size: cover;
+  background: url(@/assets/images/layout/bg.jpg) no-repeat center 0;
+  background-size: cover;
 
   .head {
     width: 1880px;
     height: 88px;
     margin: 0 auto;
-    background: url(../assets/layout/head.png);
+    background: url(@/assets/images/layout/head.png);
     background-size: 100%;
 
     .logo {
@@ -121,9 +120,8 @@ const handleFooters = () => {
       position: absolute;
       top: 20px;
       left: 203px;
-      background: url(../assets/layout/logo.png);
+      background: url(@/assets/images/layout/logo.png);
       background-size: 100%;
-
     }
 
     .company {
@@ -132,13 +130,10 @@ const handleFooters = () => {
       position: absolute;
       top: 19px;
       left: 693px;
-      background: url(../assets/layout/company.png) no-repeat center center;
+      background: url(@/assets/images/layout/company.png) no-repeat center center;
       background-size: 100%;
     }
   }
-
-  // .footer-wrap {
-  //   position: relative;
 
   .footer {
     width: 557px;
@@ -172,7 +167,7 @@ const handleFooters = () => {
     bottom: 52px;
     left: 50%;
     margin-left: -46px;
-    background: url(../assets/layout/icon-bottom.png) no-repeat center 0;
+    background: url(@/assets/images/layout/icon-bottom.png) no-repeat center 0;
     background-size: 100%;
     opacity: 1 !important;
   }
@@ -180,8 +175,6 @@ const handleFooters = () => {
   .handle-duration {
     animation-duration: 0.3s;
   }
-
-
 
   .page-handle {
     width: 112px;
@@ -255,7 +248,5 @@ const handleFooters = () => {
       font-weight: 400;
     }
   }
-
-
 }
 </style>
