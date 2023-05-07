@@ -27,73 +27,55 @@
 
 <script setup>
 
-  const props = defineProps({
-    ratioData: {
-      type: Object,
-      default: {}
-    }
-  })
+const props = defineProps({
+  ratioData: {
+    type: Object,
+    default: {}
+  }
+})
 
-  onMounted(() => {
-
-
-  });
+onMounted(() => {
+});
 
 
 </script>
 
 
 <style lang="scss" scoped>
-  .ratio-wrap {
-    position: absolute;
-    top: 75px;
-    right: 18px;
+.ratio-wrap {
+  position: absolute;
+  top: 75px;
+  right: 18px;
+  display: flex;
+  text-align: center;
+
+  .data {
+    padding-top: 8px;
     display: flex;
-    text-align: center;
-
-    .data {
-      padding-top: 8px;
-      display: flex;
-      justify-content: center;
-      font-size: 21px;
-    }
-
-    .icon-up-down {
-      width: 20px;
-      height: 20px;
-      padding: 0 7px;
-    }
-
-    .ratio-box {
-      width: 148px;
-      height: 66px;
-      // border: 2px solid rgba(54, 255, 251, 0.22);
-      background: url(@/assets/images/home/ratio-bg.png) no-repeat center 0;
-      background-size: 100%;
-    }
-
-    .ratio-box+.ratio-box {
-      margin-left: 29px;
-    }
-
-    // .ratio-box:nth-child(1) {
-    //   width: 138px;
-    // }
-
-    // .ratio-box:nth-child(2) {
-    //   width: 108px;
-    // }
-
-    // .ratio-box:nth-child(3) {
-    //   width: 128px;
-    // }
-
-    // .ratio-box:nth-child(4) {
-    //   width: 131px;
-    // }
-
-    .ratio-name {
-      font-size: 18px;
-    }
+    justify-content: center;
+    font-size: 21px;
   }
+
+  .icon-up-down {
+    width: 20px;
+    height: 20px;
+    padding: 0 7px;
+  }
+
+  .ratio-box {
+    width: 148px;
+    height: 66px;
+    // border: 2px solid rgba(54, 255, 251, 0.22);
+    background: url(@/assets/images/home/ratio-bg.png) no-repeat center 0;
+    background-size: 100%;
+  }
+
+  .ratio-box+.ratio-box {
+    margin-left: 29px;
+  }
+
+  .ratio-name {
+    font-size: 18px;
+  }
+}
 </style>

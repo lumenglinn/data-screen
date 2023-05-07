@@ -109,6 +109,15 @@ const setEchartsOption = () => {
       },
       axisTick: { show: false },
     },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
+    },
     grid: {
       top: proxy.$echartsSize(70),
       bottom: proxy.$echartsSize(45),

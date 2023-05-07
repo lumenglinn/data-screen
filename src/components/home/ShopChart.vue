@@ -47,6 +47,10 @@ onMounted(() => {
   window.addEventListener('resize', myChart.resize)
 })
 
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+});
+
 const setEchartsOption = () => {
   chartOption = {
     xAxis: {
@@ -63,6 +67,15 @@ const setEchartsOption = () => {
       axisLine: { show: false },
       axisTick: { show: false },
       data: props.dataSource?.yData
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      }
     },
     grid: {
       top: proxy.$echartsSize(70),

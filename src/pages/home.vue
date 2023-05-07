@@ -12,8 +12,8 @@
           <div class="handle-item" :class="{ 'active': field === 'outField' }" @click="switchField('outField')">外场</div>
         </div>
       </div>
-      <home-top :topData="state.topData" />
-      <home-ratio :ratioData="state.ratioData" />
+      <main-data :mainData="state.mainData" />
+      <ratio-box :ratioData="state.ratioData" />
       <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
         class="content-left animate__animated">
         <shop-chart class="bar-chart" :dataSource="state.shopData" @updateData="getShopData" ref="shopChartRef" />
@@ -70,7 +70,7 @@ const state = reactive({
     { type: '风机', run: '7/23', failure: '0/0' },
     { type: '风机', run: '7/23', failure: '0/0' }
   ], // 设备数据
-  topData: { data: 1900 }, // 顶部数据
+  mainData: { data: 1900 }, // 顶部数据
   ratioData: { val: 9 }, // 右边比率数据
   energyObj: { val: 9 }, // 能耗数据
 })
