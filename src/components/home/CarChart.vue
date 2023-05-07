@@ -28,6 +28,10 @@ const props = defineProps({
   }
 })
 
+defineExpose({
+  timeType
+})
+
 onMounted(() => {
   const myChart = proxy.$echarts.init(EcharRef.value);
   myChart.setOption({

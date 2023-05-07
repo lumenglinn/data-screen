@@ -33,9 +33,9 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         scss: {
           charset: false,
-          // additionalData: `
-          // @import "~/src/style.scss";
-          // `
+          additionalData: `
+          @import "src/assets/css/mixins.scss";
+          `
         }
       }
     },

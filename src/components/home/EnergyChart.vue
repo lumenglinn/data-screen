@@ -60,6 +60,11 @@ const props = defineProps({
 const timeType = ref(1)
 const field = ref(1)
 
+defineExpose({
+  timeType,
+  field
+})
+
 onMounted(() => {
   const myChart = proxy.$echarts.init(EcharRef.value);
   myChart.setOption({

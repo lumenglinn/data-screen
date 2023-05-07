@@ -15,11 +15,8 @@
 .f-w-900 {
   font-weight: 900;
 }
-.content {
-  .wrap {
-    margin-top: 15px;
-  }
-
+.wrap {
+  margin-top: 15px;
   .wrap-title {
     display: block;
     position: relative;
@@ -61,7 +58,8 @@
       box-shadow: inset 0px 0px 114px 6px rgba(92, 188, 218, 1);
     }
   }
-
+}
+.content {
   .content-left {
     position: absolute;
     left: 21px;
@@ -186,8 +184,7 @@
   }
 
   .active {
-    background-color: #5BDBD3;
+    background-color: #5bdbd3;
     border-radius: 4px;
   }
 }
-

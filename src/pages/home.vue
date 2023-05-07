@@ -127,11 +127,12 @@ const refreshData = () => {
 
 // 获取商铺数据
 async function getShopData() {
-  // const params = {
-  //   field: field.value,
-  //   area: area.value
-  // }
-  // const res = await proxy.$http('post', 'getInfoForWeb', params)
+  const params = {
+    field: field.value,
+    area: area.value,
+    timeType: shopChartRef.value.timeType
+  }
+  const res = await proxy.$http('post', 'getInfoForWeb', params)
 }
 
 // 获取服务质量数据

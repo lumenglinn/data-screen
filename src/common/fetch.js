@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-// import Notify from './notifyError.js'
+import { ElMessage } from 'element-plus'
 // import { isObject } from './utils'
 const BASE_URL = '/gateway-api'
 
@@ -112,11 +112,9 @@ instance.interceptors.response.use(
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
       error.message = '网络异常'
     }
-    // if (error.response && error.response.status !== 401) {
-    //   Notify({
-    //     message: error.message
-    //   })
-    // }
+    if (error.response && error.response.status !== 401) {
+      ElMessage.error(error.message)
+    }
 
     return error
   }
