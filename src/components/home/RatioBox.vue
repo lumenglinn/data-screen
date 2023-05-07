@@ -54,6 +54,7 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     font-size: 21px;
+    align-items: center;
   }
 
   .icon-up-down {

@@ -11,8 +11,8 @@
     </div>
     <div class="date-wrap">
       <div class="date-wrap-left">
-        <div class="date">2023 - 04 - 17</div>
-        <div class="week">周一 下午<span class="time">16:00</span>
+        <div class="date">{{ today.year }} - {{ today.month }} - {{ today.date }}</div>
+        <div class="week">{{ today.day }} {{ today.Tip }}<span class="time">{{ today.h }}:{{ today.m }}</span>
         </div>
       </div>
       <div class="date-wrap-right">
@@ -38,7 +38,7 @@
 </template>
 <script setup>
 import { reactive } from "vue";
-import { fullScreen, exitFullscreen, closeWindow } from '@/common/utils'
+import { fullScreen, exitFullscreen, closeWindow, formatDate } from '@/common/utils'
 import homeIcon from '@/assets/images/layout/guide-home.png';
 import carIcon from '@/assets/images/layout/guide-car.png';
 import peopleIcon from '@/assets/images/layout/guide-people.png';
@@ -59,6 +59,7 @@ import rainIcon from '@/assets/images/layout/icon-rain.png';
 import overcastIcon from '@/assets/images/layout/icon-overcast.png';
 import cloudyIcon from '@/assets/images/layout/icon-cloudy.png';
 
+const today = ref(formatDate())
 // 天气对象
 const state = reactive({
   weatherObj: {
@@ -107,6 +108,7 @@ const handleFooters = () => {
   width: 100%;
   height: 100%;
   background: url(@/assets/images/layout/bg.jpg) no-repeat center 0;
+  // background: url(@/assets/images/layout/bg1.png) no-repeat center 0;
   background-size: cover;
 
   .head {
@@ -181,8 +183,8 @@ const handleFooters = () => {
   .page-handle {
     width: 112px;
     position: absolute;
-    right: 30px;
-    top: 50px;
+    right: 46px;
+    top: 48px;
     display: flex;
     justify-content: space-between;
 
@@ -194,8 +196,8 @@ const handleFooters = () => {
 
   .date-wrap {
     position: absolute;
-    right: 200px;
-    top: 23px;
+    right: 215px;
+    top: 22px;
     color: #fff;
     display: flex;
     font-size: 16px;

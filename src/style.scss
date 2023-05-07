@@ -7,7 +7,9 @@
   overflow: hidden;
   font-size: 14px;
   color: #ffffff;
+  // min-width: 1920px;
   min-height: 1080px;
+  // min-height: 768px;
 }
 .f-w-400 {
   font-weight: 400;
@@ -50,7 +52,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      width: calc(100% - 8px);
       height: 100%;
       opacity: 0.25;
       border-radius: 14px;
@@ -116,7 +118,7 @@
   .list-head {
     display: flex;
     font-size: 16px;
-    padding: 20px 0 8px;
+    padding: 6px 0 8px;
 
     .list-head-item {
       width: 33.33%;

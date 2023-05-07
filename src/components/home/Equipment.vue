@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="wrap-cont">
-      <div class="list-table equipment">
+      <div class="list-table">
         <div class="list-head">
           <div class="list-head-item">类型</div>
           <div class="list-head-item">运行</div>
@@ -106,7 +106,7 @@ onMounted(() => {
   }
 
   .equipment-item {
-    margin-top: 15px;
+    margin-top: 12px;
     position: relative;
     width: 140px;
     height: 55px;
@@ -149,6 +149,10 @@ onMounted(() => {
 
   .wrap-cont {
     height: 176px;
+  }
+
+  .list-table {
+    padding: 10px;
   }
 
 }

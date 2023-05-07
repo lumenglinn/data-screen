@@ -26,6 +26,7 @@ const EcharRef = ref(null)
 const emit = defineEmits(['updateData'])
 const timeType = ref(1)
 const field = ref(1)
+const xData = ref(['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'])
 let myChart, chartOption
 
 const props = defineProps({
@@ -42,6 +43,7 @@ defineExpose({
 
 // 重新赋值
 watch(() => props.dataSource, (newVal, oldVal) => {
+  resetXData()
   setEchartsOption()
 }, { deep: true })
 
@@ -98,7 +100,7 @@ const setEchartsOption = () => {
           }
         },
         boundaryGap: false,
-        data: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+        data: xData.value,
         axisLine: {
           lineStyle: {
             color: '#FFFFFF',
@@ -153,6 +155,22 @@ const setEchartsOption = () => {
     ]
   }
   myChart.setOption(chartOption)
+}
+
+const resetXData = () => {
+  switch (timeType.value) {
+    case 1:
+      xData.value = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+      break;
+    case 2:
+      xData.value = ['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日']
+      break;
+    case 3:
+      xData.value = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22: 00']
+      break;
+    default:
+      break;
+  }
 }
 
 const switchTimeType = (val) => {

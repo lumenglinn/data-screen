@@ -141,7 +141,11 @@ async function getShopData() {
 async function getServerData() { }
 
 // 获取客流数据
-async function getPassengerData() { }
+async function getPassengerData() {
+  setTimeout(() => {
+    state.passengerData = [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1670]
+  }, 1000)
+}
 
 // 获取车流数据
 async function getCarData() { }
@@ -190,7 +194,5 @@ const switchField = (val) => {
   .handle-duration {
     animation-duration: 0.5s;
   }
-
-
 }
 </style>

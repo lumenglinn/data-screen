@@ -32,12 +32,12 @@ export const exitFullscreen = () => {
   }
 }
 
-// 退出全屏
+// 关闭
 export const closeWindow = () => {
   window.close()
 }
 
-export function debounce (func, wait, immediate) {
+export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
   const later = function () {
@@ -77,7 +77,7 @@ export function debounce (func, wait, immediate) {
  * @param {Object} source
  * @returns {Object}
  */
-export function deepClone (source) {
+export function deepClone(source) {
   if (!source && typeof source !== 'object') {
     throw new Error('error arguments', 'shallowClone')
   }
@@ -96,4 +96,18 @@ export function deepClone (source) {
 export const numFormat = (number) => {
   let str = number.toString()
   return str.replace(/(\d)(?=(?:\d{3})+$)/g, "$1,")
+}
+
+export const formatDate = (date = new Date()) => {
+  const weekDay = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  let h = (new Date()).getHours();
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() <= 8 ? `0${date.getMonth() + 1}` : date.getMonth() + 1,
+    date: date.getDate() <= 8 ? `0${date.getDate() + 1}` : date.getDate() + 1,
+    day: weekDay[date.getDay()],
+    Tip: h >= 0 && h < 12 ? '上午' : (h >= 12 && h < 18 ? '下午' : '晚上'),
+    h: date.getHours(),
+    m: date.getMinutes()
+  }
 }

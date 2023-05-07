@@ -34,9 +34,9 @@
           <div class="list-head-item">是否合格</div>
         </div>
         <div class="list-body">
-          <swiper :slides-per-view="5" :autoplay="{ delay: 2000, disableOnInteraction: false }" :speed="500"
-            :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true" :modules="modules"
-            style="height: 120px" ref="mySwiper">
+          <swiper :slides-per-view="5" :slides-per-group="5" :autoplay="{ delay: 2000, disableOnInteraction: false }"
+            :speed="500" :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true"
+            :modules="modules" style="height: 120px" ref="mySwiper">
             <swiper-slide v-for="(item, index) in dataSource" :key="index" class="list-data">
               <div class="data-item">{{ item.no }}</div>
               <div class="data-item">{{ item.name }}</div>
@@ -72,12 +72,15 @@ const props = defineProps({
 <style lang="scss" scoped>
 .services {
   width: 100%;
-  padding-top: 13px;
-  // color: #ccc;
+
+  .wrap-cont {
+    padding-top: 13px;
+    height: 231px;
+  }
 
   .service-head {
     width: 457px;
-    margin: 0 auto;
+    margin: 0 auto 0;
     display: flex;
     line-height: 26px;
     background: #0A3E47;
@@ -130,7 +133,7 @@ const props = defineProps({
     width: 14px;
     height: 8px;
     margin: 10px auto 0;
-    background: #7ED321;
+    background: #00FFFF;
 
     &.error {
       background: #E62A44;

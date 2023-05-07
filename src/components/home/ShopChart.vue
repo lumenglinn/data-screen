@@ -17,7 +17,7 @@
 <script setup>
 const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
-const timeType = ref(1)
+const timeType = ref(2)
 const emit = defineEmits(['updateData'])
 let timer, myChart, chartOption
 
@@ -78,10 +78,10 @@ const setEchartsOption = () => {
       }
     },
     grid: {
-      top: proxy.$echartsSize(70),
+      top: proxy.$echartsSize(55),
       bottom: proxy.$echartsSize(15),
       left: proxy.$echartsSize(160),
-      right: proxy.$echartsSize(28),
+      right: proxy.$echartsSize(35),
       show: false
     },
     dataZoom: [{

@@ -4,42 +4,42 @@
       <img class="data-icon" src="@/assets/images/home/top1.png" alt="">
       <div class="data-right">
         <div class="data-name">当日总销售</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
     <div class="data-item">
       <img class="data-icon" src="@/assets/images/home/top2.png" alt="">
       <div class="data-right">
         <div class="data-name">能源销售</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
     <div class="data-item">
       <img class="data-icon" src="@/assets/images/home/top3.png" alt="">
       <div class="data-right">
         <div class="data-name">零售销售</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
     <div class="data-item">
       <img class="data-icon" src="@/assets/images/home/top4.png" alt="">
       <div class="data-right">
         <div class="data-name">商户销售</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
     <div class="data-item">
       <img class="data-icon" src="@/assets/images/home/top5.png" alt="">
       <div class="data-right">
         <div class="data-name">车流情况</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
     <div class="data-item">
       <img class="data-icon" src="@/assets/images/home/top6.png" alt="">
       <div class="data-right">
         <div class="data-name">客流情况</div>
-        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='1000' />
+        <count-to :start-val="0" :end-val="mainData.data" class="data" :duration='2000' />
       </div>
     </div>
   </div>
