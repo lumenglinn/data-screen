@@ -18,7 +18,7 @@ declare module '@vue/runtime-core' {
     RatioBox: typeof import('./src/components/home/RatioBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Services: typeof import('./src/components/home/services.vue')['default']
+    Services: typeof import('./src/components/home/Services.vue')['default']
     ShopChart: typeof import('./src/components/home/ShopChart.vue')['default']
     VueCountTo: typeof import('./src/components/CountTo/vue-countTo.vue')['default']
   }
