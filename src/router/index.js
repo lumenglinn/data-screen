@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/home.vue'
+import Traffic from '@/pages/home.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,7 +17,14 @@ const router = createRouter({
         index: 1
       }
     },
-
+    {
+      path: '/traffic',
+      name: 'traffic',
+      component: Traffic,
+      meta: {
+        index: 1
+      }
+    },
   ]
 })
 export default router

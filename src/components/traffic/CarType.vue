@@ -25,8 +25,8 @@ const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
 const emit = defineEmits(['updateData'])
 const timeType = ref(1)
-const field = ref(2)
-const xData = ref(['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日'])
+const field = ref(1)
+const xData = ref(['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'])
 let myChart, chartOption
 
 const props = defineProps({
@@ -97,8 +97,7 @@ const setEchartsOption = () => {
           textStyle: {
             fontSize: proxy.$echartsSize(14),
             color: '#fff'
-          },
-          rotate: 30
+          }
         },
         boundaryGap: false,
         data: xData.value,

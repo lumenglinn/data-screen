@@ -9,17 +9,25 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BlackList: typeof import('./src/components/traffic/BlackList.vue')['default']
     CarChart: typeof import('./src/components/home/CarChart.vue')['default']
+    CarFlow: typeof import('./src/components/traffic/CarFlow.vue')['default']
+    CarMainData: typeof import('./src/components/traffic/CarMainData.vue')['default']
+    CarRatioBox: typeof import('./src/components/traffic/CarRatioBox.vue')['default']
+    CarType: typeof import('./src/components/traffic/CarType.vue')['default']
     EnergyChart: typeof import('./src/components/home/EnergyChart.vue')['default']
     Equipment: typeof import('./src/components/home/Equipment.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Holiday: typeof import('./src/components/traffic/Holiday.vue')['default']
     MainData: typeof import('./src/components/home/MainData.vue')['default']
     PassengerChart: typeof import('./src/components/home/PassengerChart.vue')['default']
     RatioBox: typeof import('./src/components/home/RatioBox.vue')['default']
+    Record: typeof import('./src/components/traffic/Record.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Services: typeof import('./src/components/home/Services.vue')['default']
     ShopChart: typeof import('./src/components/home/ShopChart.vue')['default']
+    SourceChart: typeof import('./src/components/traffic/SourceChart.vue')['default']
     VueCountTo: typeof import('./src/components/CountTo/vue-countTo.vue')['default']
   }
 }

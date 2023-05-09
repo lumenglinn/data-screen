@@ -9,6 +9,17 @@ export const echartsSize = (size, defalteWidth = 1920) => {
   return Number((size * scale).toFixed(3))
 }
 
+// 当前是否全屏
+export const isFullScreen = () => {
+  return !!(
+    document.fullscreen ||
+    document.mozFullScreen ||
+    document.webkitIsFullScreen ||
+    document.webkitFullScreen ||
+    document.msFullScreen
+  );
+}
+
 // 全屏
 export const fullScreen = () => {
   const de = document.documentElement
@@ -30,6 +41,10 @@ export const exitFullscreen = () => {
   } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen()
   }
+}
+
+export const handleFullScreen = () => {
+  isFullScreen() ? exitFullscreen() : fullScreen()
 }
 
 // 关闭

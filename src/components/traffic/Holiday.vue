@@ -47,8 +47,8 @@ const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
 const emit = defineEmits(['updateData'])
 const xData = ref(['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日'])
-const timeType = ref(2)
-const energyType = ref(1)
+const timeType = ref(1)
+const energyType = ref(2)
 let myChart, chartOption
 
 const props = defineProps({
@@ -88,11 +88,10 @@ const setEchartsOption = () => {
         textStyle: {
           fontSize: proxy.$echartsSize(14),
           color: '#fff'
-        },
-        rotate: 30
+        }
       },
       axisTick: {
-        interval: 'auto'
+        interval: 0
       },
       boundaryGap: false,
       data: xData.value,
@@ -130,7 +129,7 @@ const setEchartsOption = () => {
       show: false
     },
     axisTick: {
-      length: -2,
+      // length: -2,
       lineStyle: {
         type: 'dotted',
         color: '#3447A2',
@@ -154,7 +153,7 @@ const setEchartsOption = () => {
             barBorderRadius: [10, 10, 10, 10]
           },
         },
-        barWidth: '25%',
+        barWidth: '20%',
       }
     ]
   }
@@ -170,7 +169,7 @@ const resetXData = () => {
       xData.value = ['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日']
       break;
     case 3:
-      xData.value = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22: 00']
+      xData.value = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00']
       break;
     default:
       break;

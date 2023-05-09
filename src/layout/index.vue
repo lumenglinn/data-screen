@@ -1,12 +1,13 @@
 <template>
   <div class="layout">
+    <div id="mars3dContainer" class="mars3d-container"></div>
     <div class="head">
       <div class="logo"></div>
       <div class="company"></div>
     </div>
     <div class="page-handle">
-      <img class="page-handle-item" src="@/assets/images/layout/right-exit.png" @click="exitFullscreen" alt="" />
-      <img class="page-handle-item" src="@/assets/images/layout/right-full.png" @click="fullScreen" alt="" />
+      <img class="page-handle-item" src="@/assets/images/layout/right-exit.png" @click="() => { }" alt="" />
+      <img class="page-handle-item" src="@/assets/images/layout/right-full.png" @click="handleFullScreen" alt="" />
       <img class="page-handle-item" src="@/assets/images/layout/right-close.png" @click="closeWindow" alt="" />
     </div>
     <div class="date-wrap">
@@ -38,7 +39,7 @@
 </template>
 <script setup>
 import { reactive } from "vue";
-import { fullScreen, exitFullscreen, closeWindow, formatDate } from '@/common/utils'
+import { handleFullScreen, closeWindow, formatDate } from '@/common/utils'
 import homeIcon from '@/assets/images/layout/guide-home.png';
 import carIcon from '@/assets/images/layout/guide-car.png';
 import peopleIcon from '@/assets/images/layout/guide-people.png';
@@ -58,6 +59,7 @@ import snowIcon from '@/assets/images/layout/icon-snow.png';
 import rainIcon from '@/assets/images/layout/icon-rain.png';
 import overcastIcon from '@/assets/images/layout/icon-overcast.png';
 import cloudyIcon from '@/assets/images/layout/icon-cloudy.png';
+import * as mars3d from "mars3d";
 
 const today = ref(formatDate())
 // 天气对象
@@ -102,12 +104,43 @@ const handleFooters = () => {
   footerShow.value = !footerShow.value
 }
 
+
+onMounted(() => {
+  var mapOptions = {
+    scene: {
+      center: {
+        lat: 31.686288,
+        lng: 117.229619,
+        alt: 11333.9,
+        heading: 359.2,
+        pitch: -39.5,
+      },
+    },
+
+    basemaps: [{
+      "id": 2021,
+      "pid": 10,
+      "name": "天地图影像",
+      "icon": "img/basemaps/tdt_img.png",
+      "type": "group",
+      "layers": [
+        { "name": "底图", "type": "tdt", "layer": "img_d" },
+        { "name": "注记", "type": "tdt", "layer": "img_z" }
+      ],
+      "show": true
+    },],
+  };
+  var map = new mars3d.Map("mars3dContainer", mapOptions);
+
+
+})
 </script>
 <style lang="scss" scoped>
 .layout {
   width: 100%;
   height: 100%;
-  background: url(@/assets/images/layout/bg.jpg) no-repeat center 0;
+  // background: #000;
+  // background: url(@/assets/images/layout/bg.jpg) no-repeat center 0;
   // background: url(@/assets/images/layout/bg1.png) no-repeat center 0;
   background-size: cover;
 
@@ -117,6 +150,9 @@ const handleFooters = () => {
     margin: 0 auto;
     background: url(@/assets/images/layout/head.png);
     background-size: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     .logo {
       width: 247px;

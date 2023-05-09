@@ -49,8 +49,8 @@ const state = reactive({
     yData: [],
     data: []
   }, // 商铺图表数据
-  carData: [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10], // 车流图表数据
-  energyData: [1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2], // 能源图表数据
+  carData: [], // 车流图表数据
+  energyData: [], // 能源图表数据
   passengerData: [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690], // 客流图表数据
   serviceData: [
     { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
@@ -148,10 +148,18 @@ async function getPassengerData() {
 }
 
 // 获取车流数据
-async function getCarData() { }
+async function getCarData() {
+  setTimeout(() => {
+    state.carData = [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10]
+  }, 1000)
+}
 
 // 获取能耗监测数据
-async function getEnergyData() { }
+async function getEnergyData() {
+  setTimeout(() => {
+    state.energyData = [1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 1.5, 2.2, 3, 2.5, 1.5]
+  }, 1000)
+}
 
 // 获取设备监测数据
 async function getEquipmentData() { }

@@ -2,13 +2,9 @@
 
 <template>
   <div class="wrap">
-    <div class="wrap-title">客流</div>
+    <div class="wrap-title">车流</div>
     <div class="wrap-cont">
       <div class="chart-handle">
-        <div class="handle-box">
-          <div class="handle-item" :class="{ 'active': field === 1 }" @click="switchField(1)">内场</div>
-          <div class="handle-item" :class="{ 'active': field === 2 }" @click="switchField(2)">外场</div>
-        </div>
         <div class="handle-box">
           <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
           <div class="handle-item" :class="{ 'active': timeType === 2 }" @click="switchTimeType(2)">月</div>
@@ -23,10 +19,9 @@
 <script setup>
 const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
-const emit = defineEmits(['updateData'])
 const timeType = ref(1)
-const field = ref(2)
-const xData = ref(['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日'])
+const xData = ref(['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'])
+const emit = defineEmits(['updateData'])
 let myChart, chartOption
 
 const props = defineProps({
@@ -37,8 +32,7 @@ const props = defineProps({
 })
 
 defineExpose({
-  timeType,
-  field
+  timeType
 })
 
 // 重新赋值
@@ -82,7 +76,6 @@ const setEchartsOption = () => {
       show: false
     },
     axisTick: {
-      length: -2,
       lineStyle: {
         type: 'dotted',
         color: '#3447A2',
@@ -97,8 +90,7 @@ const setEchartsOption = () => {
           textStyle: {
             fontSize: proxy.$echartsSize(14),
             color: '#fff'
-          },
-          rotate: 30
+          }
         },
         boundaryGap: false,
         data: xData.value,
@@ -112,7 +104,7 @@ const setEchartsOption = () => {
     ],
     yAxis: [
       {
-        name: '(人)',
+        name: '辆',
         type: 'value',
         //刻度值
         axisLabel: {
@@ -123,7 +115,6 @@ const setEchartsOption = () => {
         },
         //网格
         splitLine: {
-          // show: false,
           lineStyle: {
             type: 'dashed',
             color: 'rgba(255,255,255,0.49)'
@@ -141,10 +132,22 @@ const setEchartsOption = () => {
     series: [
       {
         type: 'line',
-        color: '#F2D78D',
+        color: '#93E2EF',
         stack: '总量',
-        // showSymbol: false,//去除圆点
-        // smooth: true, //非折线
+        showSymbol: true,//去除圆点
+        smooth: true, //非折线
+        areaStyle: {
+          color: new proxy.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgba(194,242,236,0.67)'
+            },
+            {
+              offset: 1,
+              color: 'rgba(216,216,216,0.00)'
+            }
+          ])
+        },
         itemStyle: {
           normal: {
             lineStyle: {
@@ -168,7 +171,7 @@ const resetXData = () => {
       xData.value = ['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日']
       break;
     case 3:
-      xData.value = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22: 00']
+      xData.value = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00']
       break;
     default:
       break;
@@ -177,11 +180,6 @@ const resetXData = () => {
 
 const switchTimeType = (val) => {
   timeType.value = val
-  emit('updateData')
-}
-
-const switchField = (val) => {
-  field.value = val
   emit('updateData')
 }
 

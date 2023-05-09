@@ -10,7 +10,8 @@ import { ajaxRequest } from '@/common/api/index'
 import 'animate.css';
 // import piniaPluginPersist from 'pinia-plugin-persist'
 // import { createPinia } from 'pinia'
-
+import "mars3d-cesium/Build/Cesium/Widgets/widgets.css"
+import "mars3d/dist/mars3d.css"
 
 const app = createApp(App)
 // const pinia = createPinia()

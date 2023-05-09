@@ -28,6 +28,7 @@
     padding-left: 31px;
     color: #fff;
     font-size: 18px;
+    font-weight: 700;
     background-image: linear-gradient(270deg, rgba(92, 188, 218, 0) 17%, #5cbcda 100%);
   }
 
@@ -112,12 +113,13 @@
 }
 
 .list-table {
-  // color: #ffffff;
+  padding: 0 4px;
   overflow: hidden;
 
   .list-head {
     display: flex;
     font-size: 16px;
+    font-weight: 700;
     padding: 6px 0 8px;
 
     .list-head-item {
@@ -130,6 +132,7 @@
     display: flex;
     line-height: 30px;
     font-size: 14px;
+    font-weight: 200;
 
     .data-item {
       width: 33.33%;
@@ -152,6 +155,7 @@
 .el-popper.is-dark {
   background: rgba(10, 62, 71, 1) !important;
   border: 1px solid rgba(10, 62, 71, 1) !important;
+  font-size: 18px;
 }
 .el-popper.is-dark .el-popper__arrow::before {
   background: rgba(10, 62, 71, 1) !important;
@@ -190,5 +194,43 @@
   .active {
     background-color: #5bdbd3;
     border-radius: 4px;
+  }
+}
+
+.main-data {
+  width: 900px;
+  position: absolute;
+  top: 135px;
+  left: 50%;
+  margin-left: -450px;
+  display: flex;
+  justify-content: space-around;
+
+  .data-item {
+    width: 140px;
+    display: flex;
+    align-items: center;
+  }
+
+  .data-right {
+    text-align: center;
+  }
+
+  .data-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 9px;
+  }
+
+  .data-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #50e3c2;
+  }
+
+  .data {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
   }
 }

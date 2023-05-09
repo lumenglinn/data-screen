@@ -13,8 +13,11 @@
     "axios": "^1.4.0",
     "echarts": "^5.4.2",
     "element-plus": "^2.3.4",
+    "mars3d": "~3.4.26",
+    "mars3d-cesium": "~1.104.0",
     "pinia": "^2.0.35",
     "postcss-px-to-viewport-8-plugin": "^1.2.2",
+    "qs": "^6.11.1",
     "sass": "^1.62.1",
     "swiper": "^9.2.4",
     "vue": "^3.2.47",
@@ -27,6 +30,7 @@
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.3.2",
     "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-mars3d": "^2.1.0",
     "vite-plugin-restart": "^0.3.1"
   }
 }

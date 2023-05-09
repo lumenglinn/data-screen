@@ -19,8 +19,8 @@
 <script setup>
 const { proxy } = getCurrentInstance()
 const EcharRef = ref(null)
-const timeType = ref(1)
-const xData = ref(['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'])
+const timeType = ref(2)
+const xData = ref(['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日'])
 const emit = defineEmits(['updateData'])
 let myChart, chartOption
 
@@ -70,7 +70,7 @@ const setEchartsOption = () => {
     },
     grid: {
       top: proxy.$echartsSize(70),
-      bottom: proxy.$echartsSize(45),
+      bottom: proxy.$echartsSize(50),
       left: proxy.$echartsSize(60),
       right: proxy.$echartsSize(28),
       show: false
@@ -89,8 +89,9 @@ const setEchartsOption = () => {
           interval: 0,
           textStyle: {
             fontSize: proxy.$echartsSize(14),
-            color: '#fff'
-          }
+            color: '#fff',
+          },
+          rotate: 30
         },
         boundaryGap: false,
         data: xData.value,
@@ -116,7 +117,8 @@ const setEchartsOption = () => {
         //网格
         splitLine: {
           lineStyle: {
-            type: 'dashed'
+            type: 'dashed',
+            color: 'rgba(255,255,255,0.49)'
           }
         },
         axisLine: {
@@ -133,10 +135,10 @@ const setEchartsOption = () => {
         type: 'line',
         color: '#93E2EF',
         stack: '总量',
-        showSymbol: false,//去除圆点
+        showSymbol: true,//去除圆点
         smooth: true, //非折线
         areaStyle: {
-          color: new proxy.$echarts.graphic.LinearGradient(0, 0, 1, 1, [
+          color: new proxy.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
               color: 'rgba(194,242,236,0.67)'
@@ -170,7 +172,7 @@ const resetXData = () => {
       xData.value = ['1日', '5日', '9日', '13日', '17日', '21日', '25日', '29日']
       break;
     case 3:
-      xData.value = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00']
+      xData.value = ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22: 00']
       break;
     default:
       break;
