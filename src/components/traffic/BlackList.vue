@@ -2,33 +2,7 @@
 
 <template>
   <div class="wrap equipment">
-    <div class="wrap-title">设备监测</div>
-    <div class="equipment-box">
-      <div class="equipment-item">
-        <div class="item-content">
-          <div>总数</div>
-          <div class="equipment-data">
-            <count-to :start-val="0" :end-val="999" class="data" :duration='2500' />
-          </div>
-        </div>
-      </div>
-      <div class="equipment-item">
-        <div class="item-content">
-          <div>在线率</div>
-          <div class="equipment-data">
-            <count-to :start-val="0" :end-val="79" class="data" :duration='2500' />%
-          </div>
-        </div>
-      </div>
-      <div class="equipment-item">
-        <div class="item-content">
-          <div>故障</div>
-          <div class="equipment-data error">
-            <count-to :start-val="0" :end-val="6" class="data" :duration='2500' />
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="wrap-title">危化品黑名单记录</div>
     <div class="wrap-cont">
       <div class="list-table">
         <div class="list-head">
@@ -41,6 +15,32 @@
             <div class="data-item">{{ item.type }}</div>
             <div class="data-item"><span class="run">{{ item.run }}</span></div>
             <div class="data-item"><span class="failure">{{ item.failure }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="equipment-box">
+      <div class="equipment-item">
+        <div class="item-content">
+          <div>车位总数</div>
+          <div class="equipment-data">
+            <count-to :start-val="0" :end-val="999" class="data" :duration='2500' />
+          </div>
+        </div>
+      </div>
+      <div class="equipment-item">
+        <div class="item-content">
+          <div>占用</div>
+          <div class="equipment-data">
+            <count-to :start-val="0" :end-val="79" class="data" :duration='2500' />%
+          </div>
+        </div>
+      </div>
+      <div class="equipment-item">
+        <div class="item-content">
+          <div>充电桩</div>
+          <div class="equipment-data error">
+            <count-to :start-val="0" :end-val="6" class="data" :duration='2500' />
           </div>
         </div>
       </div>
