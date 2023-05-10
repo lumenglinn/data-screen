@@ -2,13 +2,6 @@
   <div class="wrap">
     <div class="wrap-title">商铺销售</div>
     <div class="wrap-cont">
-      <div class="chart-handle">
-        <div class="handle-box">
-          <div class="handle-item" :class="{ 'active': timeType === 1 }" @click="switchTimeType(1)">年</div>
-          <div class="handle-item" :class="{ 'active': timeType === 2 }" @click="switchTimeType(2)">月</div>
-          <div class="handle-item" :class="{ 'active': timeType === 3 }" @click="switchTimeType(3)">日</div>
-        </div>
-      </div>
       <div ref="EcharRef" class="my-charts"></div>
     </div>
   </div>
@@ -30,6 +23,8 @@ const props = defineProps({
     }
   }
 })
+
+console.log(props.dataSource, 888)
 
 defineExpose({
   timeType
@@ -121,7 +116,7 @@ const setEchartsOption = () => {
             fontWeight: 700,
             color: '#ffffff',
             formatter: (params) => {
-              return `${params.value}万元`
+              return `${params.value}%`
             }
           }
         }
@@ -147,10 +142,6 @@ const rollData = () => {
   }, 2000)
 }
 
-const switchTimeType = (val) => {
-  timeType.value = val
-  emit('updateData')
-}
 
 </script>
 
