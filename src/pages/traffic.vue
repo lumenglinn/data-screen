@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="traffic-page">
     <div class="content">
       <div class="top-handle-wrap">
         <div class="handle-box">
@@ -12,22 +12,22 @@
           <div class="handle-item" :class="{ 'active': field === 'outField' }" @click="switchField('outField')">外场</div>
         </div>
       </div>
-      <main-data :mainData="state.mainData" />
-      <ratio-box :ratioData="state.ratioData" />
+      <!-- <main-data :mainData="state.mainData" />
+      <ratio-box :ratioData="state.ratioData" /> -->
       <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
         class="content-left animate__animated">
-        <car-type class="bar-chart" :dataSource="state.shopData" @updateData="getShopData" ref="shopChartRef" />
-        <car-source :dataSource="state.serviceData" ref="serviceRef" />
-        <record :dataSource="state.passengerData" @updateData="getPassengerData" ref="passengerRef" />
+        <!-- <car-type :dataSource="state.carTypeData" @updateData="getCarTypeData" ref="CarTypeRef" /> -->
+        <source-chart :dataSource="state.sourceData" ref="serviceRef" />
+        <record :dataSource="state.recordData" @updateData="getRecordData" ref="passengerRef" />
       </div>
-      <div
+      <!-- <div
         :class="[footerShow ? 'animate__fadeInRight' : 'animate__fadeOutRight', isInitAnimated ? 'handle-duration' : '']"
         class="content-right animate__animated">
         <car-flow :dataSource="state.carData" @updateData="getCarData" ref="carChartRef" />
         <holiday :dataSource="state.energyData" @updateData="getEnergyData" :energyObj="state.energyObj"
           ref="energyChartRef" />
         <black-list :dataSource="state.equipmentData" ref="equipmentRef" />
-      </div>
+      </div> -->
       <div class="handle-content" @click="handleContent"></div>
     </div>
   </div>
@@ -37,7 +37,7 @@
 import { onMounted, reactive } from "vue";
 const { proxy } = getCurrentInstance()
 
-const shopChartRef = ref(null)
+const CarTypeRef = ref(null)
 const serviceRef = ref(null)
 const passengerRef = ref(null)
 const carChartRef = ref(null)
@@ -45,25 +45,23 @@ const energyChartRef = ref(null)
 const equipmentRef = ref(null)
 
 const state = reactive({
-  shopData: {
-    yData: [],
-    data: []
-  }, // 商铺图表数据
+  carTypeData: [
+  ], // 车型
   carData: [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10], // 车流图表数据
   energyData: [1, 1.2, 1.5, 1.3, 2, 2.5, 2.2, 3, 2.5, 2.1, 2], // 能源图表数据
-  passengerData: [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1690], // 客流图表数据
-  serviceData: [
-    { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
-    { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
-    { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
-    { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
-    { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
-    { no: '193829199', name: '消防灭火器', time: '2023-01-01 12:00', result: 1 },
-    { no: '193829199', name: '员工餐厅', time: '2023-01-01 12:00', result: 1 },
-    { no: '193829199', name: '公共场所', time: '2023-01-01 12:00', result: 2 },
-    { no: '193829199', name: '办公及生活', time: '2023-01-01 12:00', result: 2 },
-    { no: '193829199', name: '出售的商品', time: '2023-01-01 12:00', result: 2 },
-  ], // 服务质量数据
+  recordData: [
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+    { no: '008', name: '粤K22718', time: '2023-01-01 12:00', type: 1 },
+  ], // 客流图表数据
+  sourceData: {}, // 车辆来源
   equipmentData: [
     { type: '风机', run: '7/23', failure: '0/0' },
     { type: '风机', run: '7/23', failure: '0/4' },
@@ -98,11 +96,11 @@ onUnmounted(() => {
 const initData = () => {
   getRatioData()
   getMainData()
-  getShopData()
+  getCarTypeData()
   getCarData()
-  getServerData()
+  getSourceData()
   getEnergyData()
-  getPassengerData()
+  getRecordData()
   getEquipmentData()
   refreshData()
 }
@@ -112,55 +110,59 @@ const refreshData = () => {
   timer = setInterval(async () => {
     await getRatioData()
     await getMainData()
-    await getShopData()
+    await getCarTypeData()
     await getCarData()
-    await getServerData()
+    await getSourceData()
     await getEnergyData()
-    await getPassengerData()
+    await getRecordData()
     await getEquipmentData()
   }, 300000)
 }
 
 // 获取商铺数据
-async function getShopData() {
+async function getCarTypeData () {
   // const params = {
   //   field: field.value,
   //   area: area.value,
-  //   timeType: shopChartRef.value.timeType
+  //   timeType: CarTypeRef.value.timeType
   // }
   // const res = await proxy.$http('post', 'getInfoForWeb', params)
+  // setTimeout(() => {
+  //   state.carTypeData = {
+  //     yData: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店'],
+  //     data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1, 0.35, 0.29, 0.2, 0.1]
+  //   }
+  // }, 1000)
+}
+
+// 获取车辆来源数据
+async function getSourceData () {
   setTimeout(() => {
-    state.shopData = {
-      yData: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店'],
-      data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1, 0.35, 0.29, 0.2, 0.1]
+    state.sourceData = {
+      yData: ['广东 0.55万', '广西 0.55万', '江苏 0.55万', '河南 0.55万', '河北 0.55万', '北京 0.55万', '天津 0.55万', '湖北 0.55万', '广东 0.55万', '广西 0.55万', '江苏 0.55万', '河南 0.55万', '河北 0.55万', '北京 0.55万', '天津 0.55万', '湖北 0.55万'],
+      data: [80, 70, 76, 60, 55, 53, 50, 45, 80, 70, 76, 60, 55, 53, 50, 45]
     }
   }, 1000)
 }
 
-// 获取服务质量数据
-async function getServerData() { }
-
 // 获取客流数据
-async function getPassengerData() {
-  setTimeout(() => {
-    state.passengerData = [200, 300, 360, 600, 450, 800, 1200, 1600, 1450, 1500, 1780, 1670]
-  }, 1000)
+async function getRecordData () {
 }
 
 // 获取车流数据
-async function getCarData() { }
+async function getCarData () { }
 
 // 获取能耗监测数据
-async function getEnergyData() { }
+async function getEnergyData () { }
 
 // 获取设备监测数据
-async function getEquipmentData() { }
+async function getEquipmentData () { }
 
 // 获取右上角比率数据
-async function getRatioData() { }
+async function getRatioData () { }
 
 // 获取上方数据
-async function getMainData() { }
+async function getMainData () { }
 
 const handleContent = () => {
   isInitAnimated.value = true
@@ -178,7 +180,7 @@ const switchField = (val) => {
 </script>
 
 <style lang="scss" scoped>
-.home-page {
+.traffic-page {
   .handle-content {
     height: 100px;
     width: 13px;
