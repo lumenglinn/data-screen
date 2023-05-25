@@ -1,4 +1,4 @@
-<!-- 门禁出入记录 -->
+<!-- 监控预警 -->
 <template>
   <div class="wrap security-warning">
     <div class="wrap-title">监控预警</div>
@@ -17,11 +17,17 @@
             :modules="modules" style="height: 8.64167vw" ref="mySwiper">
             <swiper-slide v-for="(item, index) in dataSource" :key="index" @click="switchStatus">
               <div class="list-data">
-                <div class="data-item">{{ item.degree }}</div>
+                <div class="data-item"><img class="alarm-img" src="@/assets/images/security/alarm.png" alt="" />{{
+                  item.degree }}</div>
                 <div class="data-item">{{ item.equipment }}</div>
                 <div class="data-item">{{ item.description }}</div>
                 <div class="data-item">{{ item.time }}</div>
-                <div class="data-item" v-if="operation === 1">待确认</div>
+                <div class="data-item" v-if="item.operation === 1">
+                  <div class="unconfirm">待确认</div>
+                </div>
+                <div class="data-item" v-if="item.operation === 2">
+                  <div class="isconfirm">已确认</div>
+                </div>
               </div>
             </swiper-slide>
           </swiper>
@@ -53,15 +59,12 @@ const switchStatus = () => {
 
 <style lang="scss" scoped>
 .security-warning {
-  // width: 100%;
-
   .wrap-cont {
     padding-top: 25px;
     height: 220px;
   }
 
   .list-body {
-    // padding: 0 10px;
     text-align: center;
   }
 
@@ -69,14 +72,14 @@ const switchStatus = () => {
     line-height: 34px;
   }
 
-  .data-item:nth-child(1),
-  .list-head-item:nth-child(1) {
-    width: 14%;
+  .data-item:nth-child(4),
+  .list-head-item:nth-child(4) {
+    width: 32%;
   }
 
   .data-item,
   .list-head-item {
-    width: 18%;
+    width: 17%;
   }
 
   .data-item.time,
@@ -100,6 +103,29 @@ const switchStatus = () => {
 
   .list-data:hover {
     background: rgba(55, 123, 136, 0.48);
+  }
+
+  .alarm-img {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+  }
+
+  .unconfirm,
+  .isconfirm {
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    background: #0C8FAF;
+    text-align: center;
+    border-radius: 1px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .isconfirm {
+    box-shadow: inset 0px 0px 18px 1px rgba(0, 255, 255, 0.59);
+    border-radius: 1px;
   }
 }
 </style>
