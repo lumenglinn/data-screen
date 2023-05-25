@@ -27,11 +27,10 @@
         <security-analysis :dataSource="state.right3" ref="right3Ref" />
       </div>
       <div class="handle-content" @click="handleContent"></div>
-      <car-center ref="carCenterRef" />
     </div>
     <security-center />
-    <security-camera />
-    <security-fire />
+    <security-camera :dataSource="state.cameraData" />
+    <security-fire :dataSource="state.fireData" />
   </div>
 </template>
 
@@ -104,7 +103,34 @@ const state = reactive({
   right3: {
     yData: ['越界', '打架斗殴', '人员聚集', '越界', '高温', '打架斗殴', '人员聚集', '高温', '打架斗殴', '越界', '打架斗殴', '越界', '打架斗殴', '人员聚集', '越界', '越界'],
     data: [11, 14, 15, 12, 18, 20, 11, 16, 13, 15, 15, 15, 14, 19]
-  }
+  },
+  fireData: [
+    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.10.14', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.13.43', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.10.14', description: '点型温感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.10.14', description: '消防栓', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.13.43', description: '光束烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.13.43', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.10.14', description: '消防栓', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '排烟阀', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.13.43', description: '点型温感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '光束烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '排烟阀', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.15.98', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+  ],
+  cameraData: [
+
+  ]
 })
 
 const field = ref('outField') // 场内/场外
