@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+import { forEach } from "lodash";
 import { onMounted, reactive } from "vue";
 const { proxy } = getCurrentInstance()
 
@@ -66,9 +67,13 @@ const state = reactive({
   ], // 服务质量数据
   equipmentData: [
     { type: '风机', run: '7/23', failure: '0/0' },
-    { type: '风机', run: '7/23', failure: '0/4' },
+    { type: '风冷机组', run: '1/15', failure: '0/4' },
+    { type: '生活水系统', run: '0/4', failure: '0/0' },
+    { type: '污水系统', run: '7/23', failure: '0/44' },
     { type: '风机', run: '7/23', failure: '0/0' },
-    { type: '风机', run: '7/23', failure: '0/0' }
+    { type: '风冷机组', run: '1/15', failure: '0/4' },
+    { type: '生活水系统', run: '0/4', failure: '0/0' },
+    { type: '污水系统', run: '7/23', failure: '0/44' }
   ], // 设备数据
   mainData: { data: 1900 }, // 顶部数据
   ratioData: { val: 9 }, // 右边比率数据
@@ -76,7 +81,7 @@ const state = reactive({
 })
 
 const field = ref('outField') // 场内/场外
-const area = ref('A') // A区/B区/AB区
+const area = ref('AB') // A区/B区/AB区
 const footerShow = ref(true)
 const isInitAnimated = ref(false)
 let timer = null
@@ -131,7 +136,7 @@ async function getShopData() {
   // const res = await proxy.$http('post', 'getInfoForWeb', params)
   setTimeout(() => {
     state.shopData = {
-      yData: ['沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店', '沙溪北区太仓工厂店', '沙溪南区', '沙溪北区工厂', '沙溪北区太仓工厂店'],
+      yData: ['大盂北区太仓工厂店', '大盂南区', '大盂北区工厂', '大盂北区太仓工厂店', '大盂北区太仓工厂店', '大盂南区', '大盂北区工厂', '大盂北区太仓工厂店', '大盂北区太仓工厂店', '大盂南区', '大盂北区工厂', '大盂北区太仓工厂店'],
       data: [0.55, 0.42, 0.42, 0.4, 0.35, 0.29, 0.2, 0.1, 0.35, 0.29, 0.2, 0.1]
     }
   }, 1000)
@@ -149,9 +154,23 @@ async function getPassengerData() {
 
 // 获取车流数据
 async function getCarData() {
+  const params = {
+    field: field.value,
+    area: area.value,
+    timeType: carChartRef.value.timeType
+  }
+
   setTimeout(() => {
     state.carData = [20, 40, 30, 45, 55, 50, 40, 20, 25, 30, 25, 10]
   }, 1000)
+
+  /******************正式数据 start*********************/
+  // state.carData = []
+  // const res = await proxy.$http('post', 'getCarData', params)
+  // res.data.forEach(item=>{
+  //   state.carData[item.indx] = item.cnt
+  // })
+
 }
 
 // 获取能耗监测数据
@@ -177,12 +196,18 @@ const handleContent = () => {
 
 const switchArea = (val) => {
   area.value = val
+  switchAreaOrFied()
 }
 
 const switchField = (val) => {
   field.value = val
+  switchAreaOrFied()
 }
 
+//场地视角切换
+const switchAreaOrFied = () => {
+  proxy.$mitt.emit("switchAreaOrFied", {area:area.value,field:field.value})
+}
 </script>
 
 <style lang="scss" scoped>
