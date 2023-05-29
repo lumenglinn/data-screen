@@ -1,5 +1,5 @@
 <template>
-  <div class="traffic-page">
+  <div class="security-page">
     <div class="content">
       <div class="top-handle-wrap">
         <div class="handle-box">
@@ -15,22 +15,27 @@
       <security-alarm />
       <div :class="[footerShow ? 'animate__fadeInLeft' : 'animate__fadeOutLeft', isInitAnimated ? 'handle-duration' : '']"
         class="content-left animate__animated">
-        <!-- <security-entrance-control :dataSource="state.left1" ref="left1Ref" />
+        <security-entrance-control :dataSource="state.left1" @switchStatus="handleStatus" ref="left1Ref" />
         <security-entrance-record :dataSource="state.left2" ref="left2Ref" />
-        <security-equipment :dataSource="state.left3" ref="left3Ref" /> -->
+        <security-equipment @showPosition="handlePosition(true)" @showFire="showFire" :dataSource="state.left3"
+          ref="left3Ref" />
       </div>
       <div
         :class="[footerShow ? 'animate__fadeInRight' : 'animate__fadeOutRight', isInitAnimated ? 'handle-duration' : '']"
         class="content-right animate__animated">
-        <!-- <security-warning :dataSource="state.right1" ref="right1Ref" /> -->
-        <!-- <security-monitor :dataSource="state.right2" ref="right2Ref" /> -->
+        <security-warning :dataSource="state.right1" @showConfirm="showConfirm" ref="right1Ref" />
+        <security-monitor :dataSource="state.right2" @showCamera="showCamera" @showPosition="handlePosition(true)"
+          @showMonitor="showMonitor" ref="right2Ref" />
         <security-analysis :dataSource="state.right3" ref="right3Ref" />
       </div>
       <div class="handle-content" @click="handleContent"></div>
     </div>
-    <security-center />
-    <security-camera :dataSource="state.cameraData" />
-    <security-fire :dataSource="state.fireData" />
+    <security-camera ref="cameraRef" :dataSource="state.cameraData" />
+    <security-fire ref="fireRef" :dataSource="state.fireData" />
+    <security-confirm ref="confirmRef" @updateConfirm="updateConfirm" />
+    <security-monitor-dialog ref="monitorDialogRef" />
+    <img src="@/assets/images/security/jiankong-2.png" v-if="position" @click="handlePosition(false)" class="jiankong-img"
+      alt="">
   </div>
 </template>
 
@@ -38,13 +43,11 @@
 import { onMounted, reactive } from "vue";
 const { proxy } = getCurrentInstance()
 
-const CarTypeRef = ref(null)
-const serviceRef = ref(null)
-const passengerRef = ref(null)
-const carChartRef = ref(null)
-const energyChartRef = ref(null)
-const equipmentRef = ref(null)
-const carCenterRef = ref(null)
+const confirmRef = ref(null)
+const cameraRef = ref(null)
+const fireRef = ref(null)
+const position = ref(false)
+const monitorDialogRef = ref(null)
 
 const state = reactive({
   left1: [
@@ -84,10 +87,10 @@ const state = reactive({
   right1: [
     { degree: '重要', equipment: '东围墙50', description: '越界', time: '2023-01-01 12:00', operation: 1 },
     { degree: '重要', equipment: '东围墙30', description: '越界', time: '2023-01-01 12:00', operation: 1 },
-    { degree: '次要', equipment: '西围墙50', description: '越界', time: '2023-01-01 12:00', operation: 1 },
+    { degree: '次要', equipment: '西围墙50', description: '越界', time: '2023-01-01 12:00', operation: 2 },
     { degree: '重要', equipment: '东围墙70', description: '越界', time: '2023-01-01 12:00', operation: 1 },
-    { degree: '次要', equipment: '西围墙80', description: '越界', time: '2023-01-01 12:00', operation: 1 },
-    { degree: '重要', equipment: '东围墙40', description: '越界', time: '2023-01-01 12:00', operation: 1 },
+    { degree: '很次要', equipment: '西围墙80', description: '越界', time: '2023-01-01 12:00', operation: 1 },
+    { degree: '重要', equipment: '东围墙40', description: '越界', time: '2023-01-01 12:00', operation: 2 },
     { degree: '重要', equipment: '东围墙20', description: '越界', time: '2023-01-01 12:00', operation: 1 },
     { degree: '重要', equipment: '西围墙50', description: '越界', time: '2023-01-01 12:00', operation: 1 },
     { degree: '重要', equipment: '东围墙50', description: '越界', time: '2023-01-01 12:00', operation: 1 },
@@ -105,31 +108,54 @@ const state = reactive({
     data: [11, 14, 15, 12, 18, 20, 11, 16, 13, 15, 15, 15, 14, 19]
   },
   fireData: [
-    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.10.14', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.13.43', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.10.14', description: '点型温感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.10.14', description: '消防栓', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.13.43', description: '光束烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.13.43', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.10.14', description: '消防栓', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '排烟阀', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.13.43', description: '点型温感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '光束烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '排烟阀', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.15.98', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
-    { IP: '102.168.1.23', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '123456', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '点型温感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '消防栓', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '光束烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '排烟阀', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '538899', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '538899', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '消防栓', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '排烟阀', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '点型烟感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型温感', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '538899', description: '光束烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '639779', description: '点型烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '排烟阀', area: 'B区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '538899', description: '光束烟感', area: 'A区', position: '停车场', time: '2023-02-02 12:00' },
+    { IP: '339029', description: '点型烟感', area: 'AB区', position: '停车场', time: '2023-02-02 12:00' },
   ],
   cameraData: [
-
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
+    { area: 'A区', position: '停车场', description: '越界', time: '2023-01-01 12:00', IP: '192.168.1.23' },
   ]
 })
 
@@ -160,6 +186,7 @@ const initData = () => {
   getRight1Data()
   getRight2Data()
   getRight3Data()
+  refreshData()
 }
 
 // 5分钟刷新
@@ -174,12 +201,12 @@ const refreshData = () => {
   }, 300000)
 }
 
-async function getLeft1Data () { }
-async function getLeft2Data () { }
-async function getLeft3Data () { }
-async function getRight1Data () { }
-async function getRight2Data () { }
-async function getRight3Data () { }
+async function getLeft1Data() { }
+async function getLeft2Data() { }
+async function getLeft3Data() { }
+async function getRight1Data() { }
+async function getRight2Data() { }
+async function getRight3Data() { }
 
 
 const handleContent = () => {
@@ -196,15 +223,40 @@ const switchField = (val) => {
   field.value = val
 }
 
-const handleCenter = () => {
-  carCenterRef.value.handleModel(true)
-  console.log(carCenterRef.value.isShow, 1)
+// 门禁控制 开/关
+const handleStatus = (index, val) => {
+  state.left1[index].status = val
+}
+
+const showConfirm = (index) => {
+  confirmRef.value.handleModel(true, index)
+}
+
+// 监控预警确认
+const updateConfirm = (index) => {
+  state.right1[index].operation = 2
+}
+
+const showCamera = () => {
+  cameraRef.value.handleModel(true)
+}
+
+const handlePosition = (action = false) => {
+  position.value = action
+}
+
+const showFire = () => {
+  fireRef.value.handleModel(true)
+}
+
+const showMonitor = () => {
+  monitorDialogRef.value.handleModel(true)
 }
 
 </script>
 
 <style lang="scss" scoped>
-.traffic-page {
+.security-page {
   .handle-content {
     height: 100px;
     width: 13px;
@@ -219,6 +271,15 @@ const handleCenter = () => {
 
   .handle-duration {
     animation-duration: 0.5s;
+  }
+
+  .jiankong-img {
+    width: 1641px;
+    height: 775px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
