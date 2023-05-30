@@ -23,7 +23,7 @@
         :class="[footerShow ? 'animate__fadeInRight' : 'animate__fadeOutRight', isInitAnimated ? 'handle-duration' : '']"
         class="content-right animate__animated">
         <parking-warning :dataSource="state.right1" @showConfirm="showConfirm" ref="right1Ref" />
-        <parking-oil-warning :dataSource="state.right2" @showCamera="showCamera" @showPosition="handlePosition(true)"
+        <parking-blacklist-record :dataSource="state.right2" @showCamera="showCamera" @showPosition="handlePosition(true)"
           @showMonitor="showMonitor" ref="right2Ref" />
         <parking-illegal-stop :dataSource="state.right3" ref="right3Ref" />
       </div>
@@ -33,6 +33,9 @@
     <parking-bayonet ref="bayonetRef" @handleVideo="handleVideo" />
     <parking-monitor-dialog ref="monitorDialogRef" />
     <parking-vedio ref="vedioRef" />
+    <parking-template />
+    <parking-reminder />
+    <parking-broadcast />
   </div>
 </template>
 
@@ -94,24 +97,24 @@ const state = reactive({
     { number: '粤C22718', bayonet: '000', time: '2023-01-01 12:00', type: '着火', disposal: 2 },
   ],
   right2: [
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '002', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '006', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '009', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '008', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '007', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '009', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
-    { bayonet: '008', time: '2023-01-01 12:00', disposal: 2 },
-    { bayonet: '001', time: '2023-01-01 12:00', disposal: 1 },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤B22730', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤C22718', bayonet: '002', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤B22730', bayonet: '006', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤B22730', bayonet: '009', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤B22730', bayonet: '008', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤B22730', bayonet: '007', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤B22730', bayonet: '001', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤B22730', bayonet: '009', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤B22730', bayonet: '001', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤C22718', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
+    { number: '粤C22718', bayonet: '008', time: '2023-01-01 12:00', type: '大卡车' },
+    { number: '粤B22730', bayonet: '001', time: '2023-01-01 12:00', type: '小客车' },
   ],
   right3: [
     { number: '粤K22718', bayonet: '001', time: '2023-01-01 12:00', type: '非停车区停车', disposal: 1 },
@@ -178,12 +181,12 @@ const refreshData = () => {
   }, 300000)
 }
 
-async function getLeft1Data() { }
-async function getLeft2Data() { }
-async function getLeft3Data() { }
-async function getRight1Data() { }
-async function getRight2Data() { }
-async function getRight3Data() { }
+async function getLeft1Data () { }
+async function getLeft2Data () { }
+async function getLeft3Data () { }
+async function getRight1Data () { }
+async function getRight2Data () { }
+async function getRight3Data () { }
 
 
 const handleContent = () => {
@@ -224,6 +227,9 @@ const showRecord = () => {
 const handleVideo = () => {
   vedioRef.value.handleModel(true)
 }
+
+
+
 
 </script>
 
