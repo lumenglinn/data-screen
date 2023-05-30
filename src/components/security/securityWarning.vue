@@ -15,9 +15,9 @@
           <swiper :slides-per-view="5" :slides-per-group="5" :autoplay="{ delay: 2000, disableOnInteraction: false }"
             :speed="500" :space-between="5" :direction="'vertical'" :scrollbar="{ draggable: false }" :loop="true"
             :modules="modules" style="height: 8.64167vw" ref="mySwiper">
-            <swiper-slide v-for="(item, index) in dataSource" :key="index" @click="switchStatus">
+            <swiper-slide v-for="(item, index) in dataSource" :key="index" @click="handleConfirm(index)">
               <div class="list-data">
-                <div class="data-item"><img class="alarm-img" src="@/assets/images/security/alarm.png" alt="" />{{
+                <div class="data-item"><img class="alarm-img" src="@/assets/images/common/alarm.png" alt="" />{{
                   item.degree }}</div>
                 <div class="data-item">{{ item.equipment }}</div>
                 <div class="data-item">{{ item.description }}</div>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['viewData'])
+const emit = defineEmits(['showConfirm'])
 import { reactive } from "vue";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Navigation, Pagination, A11y } from 'swiper';
@@ -51,8 +51,8 @@ const props = defineProps({
     default: []
   }
 })
-const switchStatus = () => {
-  // emit('viewData')
+const handleConfirm = (index) => {
+  emit('showConfirm', index)
 }
 </script>
 
@@ -62,10 +62,6 @@ const switchStatus = () => {
   .wrap-cont {
     padding-top: 25px;
     height: 220px;
-  }
-
-  .list-body {
-    text-align: center;
   }
 
   .data-item {
@@ -105,6 +101,10 @@ const switchStatus = () => {
     background: rgba(55, 123, 136, 0.48);
   }
 
+  .list-data:active {
+    background: rgba(249, 29, 27, 0.22);
+  }
+
   .alarm-img {
     width: 14px;
     height: 14px;
@@ -129,5 +129,4 @@ const switchStatus = () => {
   }
 }
 </style>
-
 
