@@ -34,6 +34,7 @@
     <security-fire ref="fireRef" :dataSource="state.fireData" />
     <security-confirm ref="confirmRef" @updateConfirm="updateConfirm" />
     <security-monitor-dialog ref="monitorDialogRef" />
+    <security-camera-detail />
     <img src="@/assets/images/security/jiankong-2.png" v-if="position" @click="handlePosition(false)" class="jiankong-img"
       alt="">
   </div>
@@ -48,6 +49,7 @@ const cameraRef = ref(null)
 const fireRef = ref(null)
 const position = ref(false)
 const monitorDialogRef = ref(null)
+
 
 const state = reactive({
   left1: [
@@ -252,6 +254,10 @@ const showFire = () => {
 const showMonitor = () => {
   monitorDialogRef.value.handleModel(true)
 }
+// const handleCenter = () => {
+//   carCenterRef.value.handleModel(true)
+//   console.log(carCenterRef.value.isShow, 1)
+// }
 
 </script>
 
